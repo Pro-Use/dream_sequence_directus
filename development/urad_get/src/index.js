@@ -7,9 +7,11 @@ export default async ({ schedule }, {database, getSchema, env}) => {
 			'X-User-hash': env.URAD_HASH
 		}
 	}
+	const admin_fields = ['id', 'date_created']
 	let schema = await getSchema()
+	console.log(schema.collections.urad.fields)
 	let fields = Object.keys(schema.collections.urad.fields)
-	fields = fields.splice(2, (fields.length - 2))
+	fields = fields.filter(x => !admin_fields.includes(x));
 	console.log(fields)
 	schedule('* * * * *', async () => {
 		let res = await axios.get('http://data.uradmonitor.com/api/v1/devices/82000202/all/60', config);
