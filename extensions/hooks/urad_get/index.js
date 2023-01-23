@@ -17629,7 +17629,7 @@ var index = async ({ schedule }, {database, getSchema, env}) => {
 		}
 	};
 	let schema = await getSchema();
-	console.log(schema);
+	console.log(schema.collections.urad.fields);
 	let fields = Object.keys(schema.collections.urad.fields);
 	fields = fields.splice(2, (fields.length - 2));
 	console.log(fields);
