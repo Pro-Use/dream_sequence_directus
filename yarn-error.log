@@ -1,0 +1,47 @@
+Arguments: 
+  /home/rob/.nvm/versions/node/v18.13.0/bin/node /usr/bin/yarn run
+
+PATH: 
+  /home/rob/.nvm/versions/node/v18.13.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  18.13.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/rob/Dropbox/Work/Yuri/DreamSequence/ds_directus/package.json: Unexpected token } in JSON at position 139
+      at JSON.parse (<anonymous>)
+      at /usr/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "ds_directus",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "run": "directus start",
+  
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "directus": "^9.22.4",
+      "sqlite3": "^5.1.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
