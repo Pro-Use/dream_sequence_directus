@@ -23,7 +23,6 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 			cors: {
 			    origin: "*",
 			},
-			preferBuiltins: true,
 		});
 		// console.log(io)
 
