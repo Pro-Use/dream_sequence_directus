@@ -7,9 +7,10 @@ export default async ({ schedule }, {database, getSchema, env}) => {
 			'X-User-hash': env.URAD_HASH
 		}
 	}
+	const max_data = 7200 - 1;
 	const admin_fields = ['id', 'date_created']
 	let schema = await getSchema()
-	console.log(schema.collections.urad.fields)
+	// console.log(schema.collections.urad.fields)
 	let fields = Object.keys(schema.collections.urad.fields)
 	fields = fields.filter(x => !admin_fields.includes(x));
 	console.log(fields)
@@ -22,6 +23,16 @@ export default async ({ schedule }, {database, getSchema, env}) => {
 		console.log(newData)
 		let db_res = await database('urad').insert(newData, ['id'])
 		console.log(db_res)
+		let data_count = await(database('urad').count('*', {as: 'count'}))
+		console.log(data_count)
+		if (data_count.length && db_res){
+			let first_id = db_res[0].id - max_data
+			if (data_count[0].count > max_data) {
+				let del_rows = await(database('urad').where('id', '<=', first_id).del())
+				console.log('deleting: '+del_rows)
+			}
+		}
+		
 
 	});
 };
