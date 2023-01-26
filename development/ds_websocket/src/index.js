@@ -39,7 +39,7 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 		let outputs = await database('outputs').select('*').where('clients', 'unreal');
 		// console.log(outputs)
 		await outputs.forEach( async (output) => {
-			console.log(output)
+			// console.log(output)
 			let min = await database(output.data_source).min(output.data_type + ' as min');
 			let max = await database(output.data_source).max(output.data_type + ' as max');
 			if (min[0].min == max[0].max){
