@@ -15,7 +15,7 @@
 		"host": "^9.22.4"
 	},
 	"scripts": {
-		"build": "directus-extension build",
+		"build": "directus-extension build -i ./src/index.js -o ../../extensions/hooks/ds_websocket/index.js -t hook",
 		"dev": "directus-extension build -w --no-minify -i ./src/index.js -o ../../extensions/hooks/ds_websocket/index.js -t hook",
 		"link": "directus-extension link"
 	},
