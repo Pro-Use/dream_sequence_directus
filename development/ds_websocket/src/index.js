@@ -42,9 +42,12 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 			console.log(output)
 			let min = await database(output.data_source).min(output.data_type + ' as min');
 			let max = await database(output.data_source).max(output.data_type + ' as max');
-			let data_real = await database(output.data_source).orderBy('id', 'desc').first(output.data_type);
-			// data_real = data_real
-			let data_point = scale(data_real[output.data_type], min[0].min, max[0].max, output.min, output.max)
+			if (min[0].min == max[0].max){
+				let data_point = 0.5;
+			} else {
+				let data_real = await database(output.data_source).orderBy('id', 'desc').first(output.data_type);
+				let data_point = scale(data_real[output.data_type], min[0].min, max[0].max, output.min, output.max)
+			}
 			console.log(output.name+': '+data_point)
 			io.emit(output.name, data_point)
 		})
