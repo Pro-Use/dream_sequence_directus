@@ -1,14 +1,31 @@
 <template>
-	<private-view title="My Custom Module">Content goes here...</private-view>
+	
+	<private-view title="OUTPUTS">
+		<div class="page-container">
+
+			<unrealOutputs></unrealOutputs>
+
+
+		</div>
+
+	</private-view>
+	
 </template>
 
 <script>
 import { useApi, useStores } from '@directus/extensions-sdk';
+import pageTitle from './components/pageTitle.vue';
+import unrealOutputs from './components/unrealOutputs.vue';
 export default {
 	data() {
 		return {
 			collections: null,
+			title: 'Outputs'
 		};
+	},
+	components: {
+		pageTitle,
+		unrealOutputs
 	},
 	methods: {
 		logToConsole: function () {
@@ -28,3 +45,20 @@ export default {
 	},
 };
 </script>
+
+<style>
+	@import url('./assets/css/variables.css');
+	@import url('./assets/css/forms.css');
+
+	.page-container{
+		padding: 32px 16px;
+		color: black;
+	}
+
+    @media screen and (min-width: 600px) {
+		.page-container{
+			padding: 0 32px;
+		}
+	}
+
+</style>
