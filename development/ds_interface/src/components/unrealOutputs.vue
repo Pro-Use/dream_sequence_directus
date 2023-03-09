@@ -79,6 +79,7 @@
             font-size: 12px;
             font-weight: bold;
             line-height: 15px;
+            padding-bottom: .5em;
         }
 
     }
