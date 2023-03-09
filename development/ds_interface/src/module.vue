@@ -14,7 +14,7 @@
 
 <script>
 import { useApi, useStores } from '@directus/extensions-sdk';
-import pageTitle from './components/pageTitle.vue';
+// import pageTitle from './components/pageTitle.vue';
 import unrealOutputs from './components/unrealOutputs.vue';
 export default {
 	data() {
@@ -24,7 +24,7 @@ export default {
 		};
 	},
 	components: {
-		pageTitle,
+		// pageTitle,
 		unrealOutputs
 	},
 	methods: {
@@ -48,7 +48,7 @@ export default {
 
 <style>
 	@import url('./assets/css/variables.css');
-	@import url('./assets/css/forms.css');
+	/* @import url('./assets/css/forms.css'); */
 
 	.page-container{
 		padding: 32px 16px;
@@ -57,7 +57,7 @@ export default {
 
     @media screen and (min-width: 600px) {
 		.page-container{
-			padding: 0 32px;
+			padding: 0 48px;
 		}
 	}
 

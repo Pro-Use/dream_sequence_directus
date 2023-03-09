@@ -1,3 +1,6 @@
 :root {
-    --light-blue: rgba(184, 223, 236, 0.5);
+    --light-blue: #DBEFF5;
+    --hover-bg: #BDFF00;
+    --pale-green: #DFFF84;
+    --light-grey: #f5f5f5;
   }

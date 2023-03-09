@@ -30,8 +30,8 @@ textarea
 	background:none;
 	line-height:1;
 	/* Browsers have different default form fonts */
-	font-size:13px;
-	font-family:Arial;
+	font-size:inherit;
+	font-family:inherit;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;    
     box-sizing: border-box;
@@ -47,13 +47,13 @@ input:focus
 -----------------------------------------------*/
 
 /* All of our custom controls should be what we expect them to be */
-input,
+/* input,
 textarea
 {
 	-webkit-box-sizing:content-box;
 	-moz-box-sizing:content-box;
 	box-sizing:content-box;
-}
+} */
 
 /* These elements are usually rendered a certain way by the browser */
 button,
@@ -114,7 +114,7 @@ input[type=file]
 input[type=search]
 {
 	-webkit-appearance:textfield;
-	-webkit-box-sizing:content-box;
+	/* -webkit-box-sizing:content-box; */
 }
 
 /* Turn off the recent search for webkit. It adds about 15px padding on the left */
@@ -151,9 +151,10 @@ textarea
 {
 	/* Move the label to the top */
 	vertical-align:top;
-	
 	/* Turn off scroll bars in IE unless needed */
 	overflow:auto;
+	resize: vertical;
+	white-space: pre-wrap;
 }
 
 /* Selects
@@ -172,9 +173,25 @@ select[multiple]
 
 
 
-input, select{
-    width: 100%;
-    background-color: var(--light-blue);
-    padding: 5px;
-    border: 1px solid red;
+.input{
+	width: 100% !important;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;    
+	box-sizing: border-box;
+	background-color: var(--light-blue);
+	padding: 8px;
+	font-size: 14px;
+	min-height: 35px;
+}
+
+.input:enabled:hover{
+	background-color: var(--hover-bg);
+}
+
+select:hover{
+	cursor: pointer;
+}
+
+.input:disabled{
+	cursor: not-allowed;
 }
