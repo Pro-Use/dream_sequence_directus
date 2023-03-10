@@ -1,9 +1,9 @@
 <template>
-    <h2>Unreal Engine</h2>
+    <h2>{{clientTitle}}</h2>
 
     <div class="table">
         <div class="row table-header">
-            <div class="lg-left">ID</div>
+            <div class="lg-left">Name</div>
             <div class="lg-span-2 lg-left">Description</div>
             <div class="lg-span-2 lg-left">Source Device</div>
             <div class="lg-span-2 lg-left">Data Point</div>
@@ -13,26 +13,22 @@
             <div class="lg-center lg-span-2">Live Output</div>
         </div>
 
-        <outputTableRow></outputTableRow>
-        <outputTableRow></outputTableRow>
-        <outputTableRow></outputTableRow>
-        <outputTableRow></outputTableRow>
-
+        <outputTableRow v-for="output in outputs" :key="output.name" :output="output"></outputTableRow>
 
     </div>
 
 </template>
 
-<script>
+<script setup>
+    import { computed } from 'vue'
     import outputTableRow from './outputTableRow.vue';
-    export default {
-        components: {
-            outputTableRow
-        },
-        mounted() {
 
-        }
-    }
+    const props = defineProps(['all_outputs', 'clientTitle', 'client'])
+
+    const outputs = computed(() => {
+        return props.all_outputs.filter((output) => output.clients == props.client)
+    })
+
 </script>
 
 <style scoped>

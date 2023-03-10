@@ -1,91 +1,156 @@
-import '@directus/extensions-sdk';
-import { openBlock, createElementBlock, createElementVNode, withDirectives, unref, vModelText, vModelSelect, pushScopeId, popScopeId, resolveComponent, Fragment, createVNode, createStaticVNode, createBlock, withCtx } from 'vue';
+import { ref, inject, computed, watch, openBlock, createElementBlock, createElementVNode, withDirectives, vModelText, Fragment, renderList, unref, toDisplayString, vModelSelect, pushScopeId, popScopeId, createBlock, createStaticVNode, onMounted, provide, resolveComponent, withCtx, createCommentVNode, createVNode, createTextVNode } from 'vue';
+import { useApi } from '@directus/extensions-sdk';
 
-const _withScopeId$1 = n => (pushScopeId("data-v-c4d9ca46"),n=n(),popScopeId(),n);
+const _withScopeId = n => (pushScopeId("data-v-c4d9ca46"),n=n(),popScopeId(),n);
 const _hoisted_1$2 = { class: "row" };
-const _hoisted_2$1 = { class: "lg-left bg-light-blue" };
-const _hoisted_3$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_2$2 = { class: "lg-left bg-light-blue" };
+const _hoisted_3$1 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
-  for: "id"
-}, "ID", -1 /* HOISTED */));
+  for: "name"
+}, "Name", -1 /* HOISTED */));
 const _hoisted_4 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_5 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_5 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   id: "description",
   class: "label",
   for: "description"
 }, "Description", -1 /* HOISTED */));
 const _hoisted_6 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_7 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_7 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "device"
 }, "device", -1 /* HOISTED */));
-const _hoisted_8 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("option", { value: "uRad" }, "uRad", -1 /* HOISTED */));
-const _hoisted_9 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("option", { value: "waterMonitor" }, "Water Monitor", -1 /* HOISTED */));
-const _hoisted_10 = [
-  _hoisted_8,
-  _hoisted_9
-];
-const _hoisted_11 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_12 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_8 = ["value"];
+const _hoisted_9 = { class: "lg-span-2 lg-left bg-light-blue" };
+const _hoisted_10 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "dataPoint"
 }, "data Point", -1 /* HOISTED */));
-const _hoisted_13 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("option", { value: "o2" }, "o2", -1 /* HOISTED */));
-const _hoisted_14 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("option", { value: "temperature" }, "Temperature", -1 /* HOISTED */));
-const _hoisted_15 = [
-  _hoisted_13,
-  _hoisted_14
-];
-const _hoisted_16 = { class: "lg-center bg-light-blue" };
-const _hoisted_17 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_11 = ["value"];
+const _hoisted_12 = { class: "lg-center bg-light-blue" };
+const _hoisted_13 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "daliveDataValuetaPoint"
 }, "Live Data Value", -1 /* HOISTED */));
-const _hoisted_18 = { class: "lg-center bg-light-blue" };
-const _hoisted_19 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_14 = { class: "lg-center bg-light-blue" };
+const _hoisted_15 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "min"
 }, "Min", -1 /* HOISTED */));
-const _hoisted_20 = { class: "lg-center bg-light-blue" };
-const _hoisted_21 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_16 = { class: "lg-center bg-light-blue" };
+const _hoisted_17 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "max"
 }, "Max", -1 /* HOISTED */));
-const _hoisted_22 = { class: "lg-span-2 lg-center bg-light-blue" };
-const _hoisted_23 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_18 = { class: "lg-span-2 lg-center bg-light-blue" };
+const _hoisted_19 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "liveOutputValue"
 }, "Live Output Value", -1 /* HOISTED */));
 
-
+    
 var script$2 = {
   __name: 'outputTableRow',
+  props: ['output'],
   setup(__props) {
 
+const props = __props;
 
-let data = { 
-        "id": 1, 
-        "description": "Controls fog and water",
-        "device": "uRad",
-        "dataPoint": "o2",
-        "liveDataValue": 1.234,
-        "min": 0.1,
-        "max": 1,
-        "liveOutputValue": 0.823
-    }; 
+    
+
+    const api = useApi();
+
+    const id = ref(props.output.id);
+    const name = ref(props.output.name);
+    const description = ref(props.output.description);
+    const data_source = ref(props.output.data_source);
+    const data_type = ref(props.output.data_type);
+    const liveDataValue = ref(1.234);
+    const min = ref(props.output.min);
+    const max = ref(props.output.max);
+    const liveOutputValue = ref(0.823);
+    const updated = ref(false);
+    
+    const { save, outputSaved, outputUpdated } = inject('update');
+
+    const data_sources = inject('data_sources');
+    const data_types = inject('data_types');
+
+    const cur_data_types = computed(() =>{
+        return data_types[data_source.value]
+    });
+
+    const update = () => {
+        if (!updated.value){
+            updated.value = true;
+            outputUpdated();
+        }
+            
+    };
+
+    const checkMinMax = () => {
+        if (!min.value) {
+            min.value = 0;
+        }
+        if (!max.value) {
+            max.value = 1;
+        }
+    };
+
+    watch(save, async (newVal) => {
+        if (newVal){
+            console.log('component saved');
+            let new_output_data = {
+                'data_source': data_source.value,
+                'data_type': data_type.value,
+                'description': description.value,
+                'min': min.value,
+                'max': max.value
+            };
+            let res = await api.patch('/items/outputs/'+id.value, new_output_data);
+            console.log(res);
+            // saving logic here...
+            updated.value = false;
+            // emit save
+            outputSaved();
+
+        }
+    });
+
+    watch(min, (newMin, oldMin) =>{
+        if (0 > newMin || newMin > 1 || newMin >= max.value){
+            min.value = oldMin;
+            return
+        }
+        update();
+    });
+
+    watch(max, (newMax, oldMax) =>{
+        console.log(newMax);
+        if (!newMax){
+            return
+        }
+        if (0 > newMax || newMax > 1 || newMax <= min.value){
+            max.value = oldMax;
+            return
+        }
+        update();
+    });
+
+
+
 
 return (_ctx, _cache) => {
   return (openBlock(), createElementBlock("div", _hoisted_1$2, [
-    createElementVNode("div", _hoisted_2$1, [
+    createElementVNode("div", _hoisted_2$2, [
       _hoisted_3$1,
       withDirectives(createElementVNode("input", {
-        id: "id",
+        id: "name",
         class: "input",
         type: "text",
-        "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => ((unref(data).id) = $event)),
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => ((name).value = $event)),
         disabled: ""
       }, null, 512 /* NEED_PATCH */), [
-        [vModelText, unref(data).id]
+        [vModelText, name.value]
       ])
     ]),
     createElementVNode("div", _hoisted_4, [
@@ -94,9 +159,10 @@ return (_ctx, _cache) => {
         class: "input textarea",
         type: "textarea",
         wrap: "hard",
-        "onUpdate:modelValue": _cache[1] || (_cache[1] = $event => ((unref(data).description) = $event))
-      }, null, 512 /* NEED_PATCH */), [
-        [vModelText, unref(data).description]
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = $event => ((description).value = $event)),
+        onInput: _cache[2] || (_cache[2] = $event => (update()))
+      }, null, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [
+        [vModelText, description.value]
       ])
     ]),
     createElementVNode("div", _hoisted_6, [
@@ -105,68 +171,90 @@ return (_ctx, _cache) => {
         id: "device",
         class: "input",
         type: "textarea",
-        "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => ((unref(data).device) = $event))
-      }, _hoisted_10, 512 /* NEED_PATCH */), [
-        [vModelSelect, unref(data).device]
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = $event => ((data_source).value = $event)),
+        onInput: _cache[4] || (_cache[4] = $event => (update()))
+      }, [
+        (openBlock(true), createElementBlock(Fragment, null, renderList(unref(data_sources), (source) => {
+          return (openBlock(), createElementBlock("option", {
+            key: source,
+            value: source
+          }, toDisplayString(source), 9 /* TEXT, PROPS */, _hoisted_8))
+        }), 128 /* KEYED_FRAGMENT */))
+      ], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [
+        [vModelSelect, data_source.value]
       ])
     ]),
-    createElementVNode("div", _hoisted_11, [
-      _hoisted_12,
+    createElementVNode("div", _hoisted_9, [
+      _hoisted_10,
       withDirectives(createElementVNode("select", {
         id: "dataPoint",
         class: "input",
         type: "textarea",
-        "onUpdate:modelValue": _cache[3] || (_cache[3] = $event => ((unref(data).dataPoint) = $event))
-      }, _hoisted_15, 512 /* NEED_PATCH */), [
-        [vModelSelect, unref(data).dataPoint]
+        "onUpdate:modelValue": _cache[5] || (_cache[5] = $event => ((data_type).value = $event)),
+        onInput: _cache[6] || (_cache[6] = $event => (update()))
+      }, [
+        (openBlock(true), createElementBlock(Fragment, null, renderList(unref(cur_data_types), (type) => {
+          return (openBlock(), createElementBlock("option", {
+            key: type,
+            value: type
+          }, toDisplayString(type), 9 /* TEXT, PROPS */, _hoisted_11))
+        }), 128 /* KEYED_FRAGMENT */))
+      ], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [
+        [vModelSelect, data_type.value]
+      ])
+    ]),
+    createElementVNode("div", _hoisted_12, [
+      _hoisted_13,
+      withDirectives(createElementVNode("input", {
+        id: "liveDataValue",
+        class: "input lg-center",
+        type: "text",
+        "onUpdate:modelValue": _cache[7] || (_cache[7] = $event => ((liveDataValue).value = $event)),
+        disabled: ""
+      }, null, 512 /* NEED_PATCH */), [
+        [vModelText, liveDataValue.value]
+      ])
+    ]),
+    createElementVNode("div", _hoisted_14, [
+      _hoisted_15,
+      withDirectives(createElementVNode("input", {
+        id: "min",
+        class: "input lg-center",
+        type: "number",
+        min: "0",
+        max: "1",
+        step: "0.001",
+        "onUpdate:modelValue": _cache[8] || (_cache[8] = $event => ((min).value = $event)),
+        onChange: _cache[9] || (_cache[9] = $event => (checkMinMax()))
+      }, null, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [
+        [vModelText, min.value]
       ])
     ]),
     createElementVNode("div", _hoisted_16, [
       _hoisted_17,
       withDirectives(createElementVNode("input", {
-        id: "liveDataValue",
+        id: "max",
         class: "input lg-center",
-        type: "text",
-        "onUpdate:modelValue": _cache[4] || (_cache[4] = $event => ((unref(data).liveDataValue) = $event)),
-        disabled: ""
-      }, null, 512 /* NEED_PATCH */), [
-        [vModelText, unref(data).liveDataValue]
+        type: "number",
+        min: "0",
+        max: "1",
+        step: "0.001",
+        "onUpdate:modelValue": _cache[10] || (_cache[10] = $event => ((max).value = $event)),
+        onChange: _cache[11] || (_cache[11] = $event => (checkMinMax()))
+      }, null, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [
+        [vModelText, max.value]
       ])
     ]),
     createElementVNode("div", _hoisted_18, [
       _hoisted_19,
       withDirectives(createElementVNode("input", {
-        id: "min",
-        class: "input lg-center",
-        type: "text",
-        "onUpdate:modelValue": _cache[5] || (_cache[5] = $event => ((unref(data).min) = $event)),
-        disabled: ""
-      }, null, 512 /* NEED_PATCH */), [
-        [vModelText, unref(data).min]
-      ])
-    ]),
-    createElementVNode("div", _hoisted_20, [
-      _hoisted_21,
-      withDirectives(createElementVNode("input", {
-        id: "max",
-        class: "input lg-center",
-        type: "text",
-        "onUpdate:modelValue": _cache[6] || (_cache[6] = $event => ((unref(data).max) = $event)),
-        disabled: ""
-      }, null, 512 /* NEED_PATCH */), [
-        [vModelText, unref(data).max]
-      ])
-    ]),
-    createElementVNode("div", _hoisted_22, [
-      _hoisted_23,
-      withDirectives(createElementVNode("input", {
         id: "liveOutputValue",
         class: "input lg-center",
         type: "text",
-        "onUpdate:modelValue": _cache[7] || (_cache[7] = $event => ((unref(data).liveOutputValue) = $event)),
+        "onUpdate:modelValue": _cache[12] || (_cache[12] = $event => ((liveOutputValue).value = $event)),
         disabled: ""
       }, null, 512 /* NEED_PATCH */), [
-        [vModelText, unref(data).liveOutputValue]
+        [vModelText, liveOutputValue.value]
       ])
     ])
   ]))
@@ -183,91 +271,201 @@ n(css$2,{});
 script$2.__scopeId = "data-v-c4d9ca46";
 script$2.__file = "src/components/outputTableRow.vue";
 
+const _hoisted_1$1 = { class: "table" };
+const _hoisted_2$1 = /*#__PURE__*/createStaticVNode("<div class=\"row table-header\" data-v-345ca9e7><div class=\"lg-left\" data-v-345ca9e7>Name</div><div class=\"lg-span-2 lg-left\" data-v-345ca9e7>Description</div><div class=\"lg-span-2 lg-left\" data-v-345ca9e7>Source Device</div><div class=\"lg-span-2 lg-left\" data-v-345ca9e7>Data Point</div><div class=\"lg-center\" data-v-345ca9e7>Live Data Value</div><div class=\"lg-center\" data-v-345ca9e7>Min</div><div class=\"lg-center\" data-v-345ca9e7>Max</div><div class=\"lg-center lg-span-2\" data-v-345ca9e7>Live Output</div></div>", 1);
+
+    
 var script$1 = {
-        components: {
-            outputTableRow: script$2
-        },
-        mounted() {
+  __name: 'clientOutputs',
+  props: ['all_outputs', 'clientTitle', 'client'],
+  setup(__props) {
 
-        }
-    };
+const props = __props;
 
-const _withScopeId = n => (pushScopeId("data-v-71f43e7b"),n=n(),popScopeId(),n);
-const _hoisted_1$1 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("h2", null, "Unreal Engine", -1 /* HOISTED */));
-const _hoisted_2 = { class: "table" };
-const _hoisted_3 = /*#__PURE__*/createStaticVNode("<div class=\"row table-header\" data-v-71f43e7b><div class=\"lg-left\" data-v-71f43e7b>ID</div><div class=\"lg-span-2 lg-left\" data-v-71f43e7b>Description</div><div class=\"lg-span-2 lg-left\" data-v-71f43e7b>Source Device</div><div class=\"lg-span-2 lg-left\" data-v-71f43e7b>Data Point</div><div class=\"lg-center\" data-v-71f43e7b>Live Data Value</div><div class=\"lg-center\" data-v-71f43e7b>Min</div><div class=\"lg-center\" data-v-71f43e7b>Max</div><div class=\"lg-center lg-span-2\" data-v-71f43e7b>Live Output</div></div>", 1);
+    
 
-function render$1(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_outputTableRow = resolveComponent("outputTableRow");
+    const outputs = computed(() => {
+        return props.all_outputs.filter((output) => output.clients == props.client)
+    });
 
+
+return (_ctx, _cache) => {
   return (openBlock(), createElementBlock(Fragment, null, [
-    _hoisted_1$1,
-    createElementVNode("div", _hoisted_2, [
-      _hoisted_3,
-      createVNode(_component_outputTableRow),
-      createVNode(_component_outputTableRow),
-      createVNode(_component_outputTableRow),
-      createVNode(_component_outputTableRow)
+    createElementVNode("h2", null, toDisplayString(__props.clientTitle), 1 /* TEXT */),
+    createElementVNode("div", _hoisted_1$1, [
+      _hoisted_2$1,
+      (openBlock(true), createElementBlock(Fragment, null, renderList(unref(outputs), (output) => {
+        return (openBlock(), createBlock(script$2, {
+          key: output.name,
+          output: output
+        }, null, 8 /* PROPS */, ["output"]))
+      }), 128 /* KEYED_FRAGMENT */))
     ])
   ], 64 /* STABLE_FRAGMENT */))
 }
+}
 
-var css$1 = "\nh2[data-v-71f43e7b]{\n        font-size: 1.25em;\n        padding: 1em 0;\n        border-top: 1px solid black;\n        border-bottom: 1px solid black;\n        text-transform: uppercase;\n}\n.table-header div[data-v-71f43e7b]{\n        display: none;\n}\n.table[data-v-71f43e7b]{\n        padding-top: 2em;\n}\n@media screen and (min-width: 1200px) {\n.row[data-v-71f43e7b]{\n            display: grid;\n            grid-template-columns: repeat(12, 1fr);\n            grid-gap: 2px;\n            width: 100%;\n}\n.lg-span-2[data-v-71f43e7b]{\n            grid-column: span 2;\n}\n.lg-center[data-v-71f43e7b]{\n            text-align: center;\n}\n.lg-left[data-v-71f43e7b]{\n            text-align: left;\n}\n.table-header div[data-v-71f43e7b]{\n            display: initial;\n            font-size: 12px;\n            font-weight: bold;\n            line-height: 15px;\n            padding-bottom: .5em;\n}\n}\n\n";
-n(css$1,{});
-
-script$1.render = render$1;
-script$1.__scopeId = "data-v-71f43e7b";
-script$1.__file = "src/components/unrealOutputs.vue";
-
-var script = {
-	data() {
-		return {
-			collections: null,
-			title: 'Outputs'
-		};
-	},
-	components: {
-		// pageTitle,
-		unrealOutputs: script$1
-	},
-	methods: {
-		logToConsole: function () {
-			console.log(this.collections);
-		},
-	},
-	inject: ['api'],
-	mounted() {
-		// log the system field so you can see what attributes are available under it
-		// remove this line when you're done.
-		console.log(this.api);
-
-		// Get a list of all available collections to use with this module
-		this.api.get('/collections?limit=-1').then((res) => {
-			this.collections = res.data.data;
-		});
-	},
 };
 
-const _hoisted_1 = { class: "page-container" };
+var css$1 = "\nh2[data-v-345ca9e7]{\n        font-size: 1.25em;\n        padding: 1em 0;\n        border-top: 1px solid black;\n        border-bottom: 1px solid black;\n        text-transform: uppercase;\n}\n.table-header div[data-v-345ca9e7]{\n        display: none;\n}\n.table[data-v-345ca9e7]{\n        padding-top: 2em;\n}\n@media screen and (min-width: 1200px) {\n.row[data-v-345ca9e7]{\n            display: grid;\n            grid-template-columns: repeat(12, 1fr);\n            grid-gap: 2px;\n            width: 100%;\n}\n.lg-span-2[data-v-345ca9e7]{\n            grid-column: span 2;\n}\n.lg-center[data-v-345ca9e7]{\n            text-align: center;\n}\n.lg-left[data-v-345ca9e7]{\n            text-align: left;\n}\n.table-header div[data-v-345ca9e7]{\n            display: initial;\n            font-size: 12px;\n            font-weight: bold;\n            line-height: 15px;\n            padding-bottom: .5em;\n}\n}\n\n";
+n(css$1,{});
 
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_unrealOutputs = resolveComponent("unrealOutputs");
+script$1.__scopeId = "data-v-345ca9e7";
+script$1.__file = "src/components/clientOutputs.vue";
+
+const _hoisted_1 = { class: "page-container" };
+const _hoisted_2 = { key: 0 };
+const _hoisted_3 = { key: 1 };
+
+	
+var script = {
+  __name: 'module',
+  setup(__props) {
+
+	// import pageTitle from './components/pageTitle.vue';
+	const api = useApi();
+
+	const allUpdates = ref(0);
+	const save = ref(false);
+
+	const data_sources = ref([]);
+	const data_types = ref({});
+	var all_outputs = ref([]);
+	
+	const outputSaved = () => {
+		console.log("1 ouput saved");
+		if (allUpdates.value > 0){
+			allUpdates.value -= 1;
+			if (allUpdates.value == 0){
+				save.value = false;
+			}
+		}
+	};
+
+	const outputUpdated = () => {
+		console.log("1 ouput updated");
+		allUpdates.value  += 1;
+	};
+
+	const doSave = () => {
+		save.value = true;
+	};
+
+	onMounted( async () => {
+		api.get('/items/data_sources').then((res) => {
+            res.data.data.forEach(source => { 
+                data_sources.value.push(source.name);
+                api.get('items/'+source.name+'?limit=1').then((res) => {
+                    let keys = Object.keys(res.data.data[0]);
+                    let dt = keys.filter((key) => key != 'id' && key != 'date_created');
+                    data_types.value[source.name] = dt;
+                });
+            });
+        });
+        console.log(data_sources.value);
+        console.log(data_types.value);
+        provide('data_sources', data_sources.value);
+        provide('data_types', data_types.value);
+
+        let res = await api.get('/items/outputs');
+
+    	console.log(res.data.data);
+        all_outputs.value = res.data.data;
+
+        console.log(all_outputs.value);
+	});
+
+	provide('update',{ save, outputSaved, outputUpdated });
+
+	ref('Outputs');
+
+
+
+return (_ctx, _cache) => {
+  const _component_v_icon = resolveComponent("v-icon");
+  const _component_v_list_item_icon = resolveComponent("v-list-item-icon");
+  const _component_v_list_item_content = resolveComponent("v-list-item-content");
+  const _component_v_list_item = resolveComponent("v-list-item");
+  const _component_v_list = resolveComponent("v-list");
   const _component_private_view = resolveComponent("private-view");
 
   return (openBlock(), createBlock(_component_private_view, { title: "OUTPUTS" }, {
+    navigation: withCtx(() => [
+      createCommentVNode(" This goes in the navigation bar! "),
+      createVNode(_component_v_list, { nav: "true" }, {
+        default: withCtx(() => [
+          createVNode(_component_v_list_item, { to: "/ds_interface" }, {
+            default: withCtx(() => [
+              createVNode(_component_v_list_item_icon, null, {
+                default: withCtx(() => [
+                  createVNode(_component_v_icon, { name: "label" })
+                ]),
+                _: 1 /* STABLE */
+              }),
+              createVNode(_component_v_list_item_content, null, {
+                default: withCtx(() => [
+                  createTextVNode("Output")
+                ]),
+                _: 1 /* STABLE */
+              })
+            ]),
+            _: 1 /* STABLE */
+          }),
+          createVNode(_component_v_list_item, null, {
+            default: withCtx(() => [
+              createVNode(_component_v_list_item_icon, null, {
+                default: withCtx(() => [
+                  createVNode(_component_v_icon, { name: "label" })
+                ]),
+                _: 1 /* STABLE */
+              }),
+              createVNode(_component_v_list_item_content, null, {
+                default: withCtx(() => [
+                  createTextVNode("System")
+                ]),
+                _: 1 /* STABLE */
+              })
+            ]),
+            _: 1 /* STABLE */
+          })
+        ]),
+        _: 1 /* STABLE */
+      })
+    ]),
     default: withCtx(() => [
       createElementVNode("div", _hoisted_1, [
-        createVNode(_component_unrealOutputs)
-      ])
+        createVNode(script$1, {
+          all_outputs: unref(all_outputs),
+          client: "unreal",
+          clientTitle: "Unreal Engine"
+        }, null, 8 /* PROPS */, ["all_outputs"]),
+        createVNode(script$1, {
+          all_outputs: unref(all_outputs),
+          client: "midi",
+          clientTitle: "MIDI"
+        }, null, 8 /* PROPS */, ["all_outputs"])
+      ]),
+      (allUpdates.value > 0)
+        ? (openBlock(), createElementBlock("button", {
+            key: 0,
+            onClick: _cache[0] || (_cache[0] = $event => (doSave()))
+          }, [
+            (!save.value)
+              ? (openBlock(), createElementBlock("span", _hoisted_2, "Save"))
+              : (openBlock(), createElementBlock("span", _hoisted_3, "Saving..."))
+          ]))
+        : createCommentVNode("v-if", true)
     ]),
     _: 1 /* STABLE */
   }))
 }
+}
+
+};
 
 var css = ":root {\n    --light-blue: #DBEFF5;\n    --hover-bg: #BDFF00;\n    --pale-green: #DFFF84;\n    --light-grey: #f5f5f5;\n  }\n\t/* @import url('./assets/css/forms.css'); */\n.page-container{\n\t\tpadding: 32px 16px;\n\t\tcolor: black;\n}\n@media screen and (min-width: 600px) {\n.page-container{\n\t\t\tpadding: 0 48px;\n}\n}\n\n";
 n(css,{});
 
-script.render = render;
 script.__file = "src/module.vue";
 
 var index = {
