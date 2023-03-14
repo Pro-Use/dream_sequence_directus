@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "directus start"
+    "start": "directus start",
+    "dev": "nodemon --exec npx directus start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "directus": "^9.22.4",
+    "nodemon": "^2.0.21",
     "sqlite3": "^5.1.4"
   }
 }

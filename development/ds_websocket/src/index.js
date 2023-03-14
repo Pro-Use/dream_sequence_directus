@@ -1,15 +1,6 @@
 import { Server } from "socket.io";
 
 export default async ({ schedule, action }, {database, getSchema}) => {
-	// let schema = await getSchema()
-	// let fields = Object.keys(schema.collections.urad.fields)
-	// fields = fields.splice(2, (fields.length - 2))
-	// console.log(fields)
-	// schedule('*/10 * * * * *', async () => {
-	// 	let db_res = await database('urad').insert(newData, ['id'])
-	// 	console.log(db_res)
-
-	// });
 
 	const scale =  (number, inMin, inMax, outMin, outMax) => {
 	    return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
@@ -40,6 +31,9 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 	});
 
 	schedule('*/10 * * * * *', async () => {
+		if(!io){
+			return
+		}
 		// UE
 		let ue_outputs = await database('outputs').select('*').where('clients', 'unreal');
 		// console.log(ue_outputs)
