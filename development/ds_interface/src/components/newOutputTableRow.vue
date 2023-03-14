@@ -1,8 +1,6 @@
 <template>
-    <div v-if="!new_output" class="row">
-        <div class="lg-span-2 bg-light-grey">
-            <button class="input" @click="update()">New</button>
-        </div>
+    <div class="add-container " v-if="!new_output">
+        <button class="add" @click="update()">New</button>
     </div>
     <div v-else class="row">
         <div class="lg-left bg-light-blue">
@@ -42,7 +40,9 @@
         </div>
     </div>
     <div>
-        <div class="lg-span-2" v-for="error in errors" :key="errror">{{error}}</div>
+        <div class="lg-span-2 error" v-for="error in errors" :key="errror">
+            <v-icon name="error"/> {{error}}
+        </div>
     </div>
 </template>
 
@@ -122,6 +122,7 @@
         data_type.value = null
         min.value = 0
         max.value = 1
+        errors.value = []
     }
 
     watch(save, async (newVal) => {
@@ -205,6 +206,33 @@
         text-transform: capitalize;
         border-right: 1px solid grey;
         background-color: var(--light-blue);
+    }
+
+    .error {
+        padding: 8px;
+        color: darkred;
+    }
+
+    .add {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 8px;
+        font-size: 14px;
+        min-height: 35px;
+    }
+
+    .add-container {
+        width: 100px;
+        align-content: center;
+        display: grid;
+        border: #dddddd solid 1px;
+        border-radius: 100px;
+        background: white;
+        -webkit-box-shadow: 5px 5px 10px 1px #dddddd;
+        -moz-box-shadow: 5px 5px 10px 1px #dddddd;
+        box-shadow: 5px 5px 10px 1px #dddddd;
+        margin: 10px 0px;
     }
 
 

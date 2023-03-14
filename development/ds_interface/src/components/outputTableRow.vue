@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div :class="{'updated':updated, 'not-updated':!updated}" class="row" >
         <div class="lg-left bg-light-blue">
             <label class="label" for="name">Name</label>
             <input id="name" class="input" type="text" v-model="name" @input="update()">
@@ -33,12 +33,14 @@
             <input id="liveOutputValue"  class="input lg-center" type="text" :value="latest_val" disabled>
         </div>
         <div class="lg-center bg-light-blue">
-            <button v-if="!deleting" @click="preDelete()"><v-icon name="delete"/></button>
-            <button v-else @click="doDelete()">Delete?</button>
+            <button class="del-buttons" v-if="!deleting" @click="preDelete()"><v-icon name="delete"/></button>
+            <button class="del-buttons" v-else @click="doDelete()">Delete?</button>
         </div>
     </div>
     <div>
-        <div class="lg-span-2" v-for="error in errors" :key="errror">{{error}}</div>
+        <div class="lg-span-2 error" v-for="error in errors" :key="errror">
+            <v-icon name="error"/> {{error}}
+        </div>
     </div>
 </template>
 
@@ -126,9 +128,11 @@
         if (name.value.length == 0){
             errors.value.push('Output name cannot be blank')
         } else {
-            let check_name = all_outputs.value.filter((output) => output.name == name.value)
-            if (check_name.length > 0){
-                errors.value.push('An output named "'+name.value+'" already exists')
+            if(prev_vals.name != name.value){
+                let check_name = all_outputs.value.filter((output) => output.name == name.value)
+                if (check_name.length > 0){
+                    errors.value.push('An output named "'+name.value+'" already exists')
+                }
             }
         }
         if (data_source.value == null){
@@ -218,7 +222,6 @@
         display: grid;
         grid-template-columns: 1fr;
         margin-bottom: 1em;
-        border: 1px solid grey;
         border-radius: 5px;
         overflow: hidden;
     }
@@ -241,6 +244,24 @@
         background-color: var(--light-blue);
     }
 
+    .updated {
+        border: #ff9800 1px solid;
+    }
+
+    .not-updated {
+        border: 1px solid grey;
+    }
+
+    .del-buttons {
+        grid-column: 1 / 3;
+        min-height: 35px;
+    }
+
+    .error {
+        padding: 8px;
+        color: darkred;
+    }
+
 
     @media screen and (min-width: 1200px) {
 
@@ -260,6 +281,9 @@
             grid-gap: 1px;
             width: 100%;
             margin-bottom: 2px;
+        }
+
+        .not-updated {
             border: 0px;
         }
 

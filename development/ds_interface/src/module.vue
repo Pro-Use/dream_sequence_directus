@@ -16,18 +16,18 @@
 	    </template>
 		<div class="page-container">
 
-			<clientOutputs :all_outputs="all_outputs" client='unreal' clientTitle="Unreal Engine"></clientOutputs>
+			<clientOutputs :all_outputs="all_outputs" client='unreal' clientTitle="Unreal Engine:"></clientOutputs>
 
 			<clientOutputs :all_outputs="all_outputs" client='midi' clientTitle="MIDI"></clientOutputs>
 
 
 		</div>
-		<div v-if="allUpdates > 0">
-			<button @click="doSave()" :disabled="discard">
+		<div class="update-bar" v-if="allUpdates > 0">
+			<button class="update-button" @click="doSave()" :disabled="discard">
 				<span v-if="!save">Save</span>
 				<span v-else>Saving...</span>
 			</button>
-			<button @click="doDiscard()"> Discard </button>
+			<button class="update-button" @click="doDiscard()"> Discard </button>
 		</div>
 	</private-view>
 	
@@ -161,9 +161,33 @@
 		color: black;
 	}
 
+	.update-bar {
+	    position: sticky;
+	    height: 50px;
+	    bottom: 0px;
+	    background: #ff8400;
+	    line-height: 50px;
+	    width: 100%;
+	    padding: 0 16px;
+	}
+
+	.update-button {
+	    padding: 12px;
+	    min-width: 100px;
+	    margin-right: 8px;
+	    color: white;
+	    border: white solid 1px;
+	    border-radius: 50px;
+	}
+
     @media screen and (min-width: 600px) {
 		.page-container{
 			padding: 0 48px;
+		}
+
+		.update-bar {
+		    padding: 0 48px;
+		    margin-top: 48px;
 		}
 	}
 

@@ -1,48 +1,47 @@
-import { ref, inject, computed, watch, resolveComponent, openBlock, createElementBlock, Fragment, createElementVNode, withDirectives, vModelText, renderList, unref, toDisplayString, vModelSelect, createVNode, pushScopeId, popScopeId, createBlock, createStaticVNode, onMounted, provide, withCtx, createCommentVNode, createTextVNode } from 'vue';
+import { ref, inject, computed, watch, resolveComponent, openBlock, createElementBlock, Fragment, createElementVNode, normalizeClass, withDirectives, vModelText, renderList, unref, toDisplayString, vModelSelect, createVNode, createTextVNode, pushScopeId, popScopeId, createBlock, createStaticVNode, onMounted, provide, withCtx, createCommentVNode } from 'vue';
 import { useApi } from '@directus/extensions-sdk';
 
 const _withScopeId$1 = n => (pushScopeId("data-v-c4d9ca46"),n=n(),popScopeId(),n);
-const _hoisted_1$3 = { class: "row" };
-const _hoisted_2$3 = { class: "lg-left bg-light-blue" };
-const _hoisted_3$2 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_1$3 = { class: "lg-left bg-light-blue" };
+const _hoisted_2$3 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "name"
 }, "Name", -1 /* HOISTED */));
-const _hoisted_4$2 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_5$2 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_3$2 = { class: "lg-span-2 lg-left bg-light-blue" };
+const _hoisted_4$2 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
   id: "description",
   class: "label",
   for: "description"
 }, "Description", -1 /* HOISTED */));
-const _hoisted_6$1 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_7$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_5$2 = { class: "lg-span-2 lg-left bg-light-blue" };
+const _hoisted_6$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "device"
 }, "device", -1 /* HOISTED */));
-const _hoisted_8$1 = ["value"];
-const _hoisted_9$1 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_10$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_7$1 = ["value"];
+const _hoisted_8$1 = { class: "lg-span-2 lg-left bg-light-blue" };
+const _hoisted_9$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "dataPoint"
 }, "data Point", -1 /* HOISTED */));
-const _hoisted_11$1 = ["value"];
-const _hoisted_12$1 = { class: "lg-center bg-light-blue" };
-const _hoisted_13$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_10$1 = ["value"];
+const _hoisted_11$1 = { class: "lg-center bg-light-blue" };
+const _hoisted_12$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "min"
 }, "Min", -1 /* HOISTED */));
-const _hoisted_14$1 = { class: "lg-center bg-light-blue" };
-const _hoisted_15$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_13$1 = { class: "lg-center bg-light-blue" };
+const _hoisted_14$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "max"
 }, "Max", -1 /* HOISTED */));
-const _hoisted_16$1 = { class: "lg-center lg-span-2 bg-light-blue" };
-const _hoisted_17$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_15$1 = { class: "lg-center lg-span-2 bg-light-blue" };
+const _hoisted_16$1 = /*#__PURE__*/ _withScopeId$1(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "liveOutputValue"
 }, "Live Output Value", -1 /* HOISTED */));
-const _hoisted_18$1 = ["value"];
-const _hoisted_19$1 = { class: "lg-center bg-light-blue" };
+const _hoisted_17$1 = ["value"];
+const _hoisted_18$1 = { class: "lg-center bg-light-blue" };
 
     
 var script$3 = {
@@ -132,9 +131,11 @@ const props = __props;
         if (name.value.length == 0){
             errors.value.push('Output name cannot be blank');
         } else {
-            let check_name = all_outputs.value.filter((output) => output.name == name.value);
-            if (check_name.length > 0){
-                errors.value.push('An output named "'+name.value+'" already exists');
+            if(prev_vals.name != name.value){
+                let check_name = all_outputs.value.filter((output) => output.name == name.value);
+                if (check_name.length > 0){
+                    errors.value.push('An output named "'+name.value+'" already exists');
+                }
             }
         }
         if (data_source.value == null){
@@ -220,9 +221,11 @@ return (_ctx, _cache) => {
   const _component_v_icon = resolveComponent("v-icon");
 
   return (openBlock(), createElementBlock(Fragment, null, [
-    createElementVNode("div", _hoisted_1$3, [
-      createElementVNode("div", _hoisted_2$3, [
-        _hoisted_3$2,
+    createElementVNode("div", {
+      class: normalizeClass([{'updated':updated.value, 'not-updated':!updated.value}, "row"])
+    }, [
+      createElementVNode("div", _hoisted_1$3, [
+        _hoisted_2$3,
         withDirectives(createElementVNode("input", {
           id: "name",
           class: "input",
@@ -233,8 +236,8 @@ return (_ctx, _cache) => {
           [vModelText, name.value]
         ])
       ]),
-      createElementVNode("div", _hoisted_4$2, [
-        _hoisted_5$2,
+      createElementVNode("div", _hoisted_3$2, [
+        _hoisted_4$2,
         withDirectives(createElementVNode("textarea", {
           class: "input textarea",
           type: "textarea",
@@ -245,8 +248,8 @@ return (_ctx, _cache) => {
           [vModelText, description.value]
         ])
       ]),
-      createElementVNode("div", _hoisted_6$1, [
-        _hoisted_7$1,
+      createElementVNode("div", _hoisted_5$2, [
+        _hoisted_6$1,
         withDirectives(createElementVNode("select", {
           id: "device",
           class: "input",
@@ -258,14 +261,14 @@ return (_ctx, _cache) => {
             return (openBlock(), createElementBlock("option", {
               key: source,
               value: source
-            }, toDisplayString(source), 9 /* TEXT, PROPS */, _hoisted_8$1))
+            }, toDisplayString(source), 9 /* TEXT, PROPS */, _hoisted_7$1))
           }), 128 /* KEYED_FRAGMENT */))
         ], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [
           [vModelSelect, data_source.value]
         ])
       ]),
-      createElementVNode("div", _hoisted_9$1, [
-        _hoisted_10$1,
+      createElementVNode("div", _hoisted_8$1, [
+        _hoisted_9$1,
         withDirectives(createElementVNode("select", {
           id: "dataPoint",
           class: "input",
@@ -277,14 +280,14 @@ return (_ctx, _cache) => {
             return (openBlock(), createElementBlock("option", {
               key: type,
               value: type
-            }, toDisplayString(type), 9 /* TEXT, PROPS */, _hoisted_11$1))
+            }, toDisplayString(type), 9 /* TEXT, PROPS */, _hoisted_10$1))
           }), 128 /* KEYED_FRAGMENT */))
         ], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [
           [vModelSelect, data_type.value]
         ])
       ]),
-      createElementVNode("div", _hoisted_12$1, [
-        _hoisted_13$1,
+      createElementVNode("div", _hoisted_11$1, [
+        _hoisted_12$1,
         withDirectives(createElementVNode("input", {
           id: "min",
           class: "input lg-center",
@@ -298,8 +301,8 @@ return (_ctx, _cache) => {
           [vModelText, min.value]
         ])
       ]),
-      createElementVNode("div", _hoisted_14$1, [
-        _hoisted_15$1,
+      createElementVNode("div", _hoisted_13$1, [
+        _hoisted_14$1,
         withDirectives(createElementVNode("input", {
           id: "max",
           class: "input lg-center",
@@ -313,36 +316,41 @@ return (_ctx, _cache) => {
           [vModelText, max.value]
         ])
       ]),
-      createElementVNode("div", _hoisted_16$1, [
-        _hoisted_17$1,
+      createElementVNode("div", _hoisted_15$1, [
+        _hoisted_16$1,
         createElementVNode("input", {
           id: "liveOutputValue",
           class: "input lg-center",
           type: "text",
           value: unref(latest_val),
           disabled: ""
-        }, null, 8 /* PROPS */, _hoisted_18$1)
+        }, null, 8 /* PROPS */, _hoisted_17$1)
       ]),
-      createElementVNode("div", _hoisted_19$1, [
+      createElementVNode("div", _hoisted_18$1, [
         (!deleting.value)
           ? (openBlock(), createElementBlock("button", {
               key: 0,
+              class: "del-buttons",
               onClick: _cache[12] || (_cache[12] = $event => (preDelete()))
             }, [
               createVNode(_component_v_icon, { name: "delete" })
             ]))
           : (openBlock(), createElementBlock("button", {
               key: 1,
+              class: "del-buttons",
               onClick: _cache[13] || (_cache[13] = $event => (doDelete()))
             }, "Delete?"))
       ])
-    ]),
+    ], 2 /* CLASS */),
     createElementVNode("div", null, [
       (openBlock(true), createElementBlock(Fragment, null, renderList(errors.value, (error) => {
         return (openBlock(), createElementBlock("div", {
-          class: "lg-span-2",
+          class: "lg-span-2 error",
           key: _ctx.errror
-        }, toDisplayString(error), 1 /* TEXT */))
+        }, [
+          createVNode(_component_v_icon, { name: "error" }),
+          createTextVNode(" " + toDisplayString(error), 1 /* TEXT */)
+        ]))
       }), 128 /* KEYED_FRAGMENT */))
     ])
   ], 64 /* STABLE_FRAGMENT */))
@@ -353,7 +361,7 @@ return (_ctx, _cache) => {
 
 var e=[],t=[];function n(n,r){if(n&&"undefined"!=typeof document){var a,s=!0===r.prepend?"prepend":"append",d=!0===r.singleTag,i="string"==typeof r.container?document.querySelector(r.container):document.getElementsByTagName("head")[0];if(d){var u=e.indexOf(i);-1===u&&(u=e.push(i)-1,t[u]={}),a=t[u]&&t[u][s]?t[u][s]:t[u][s]=c();}else a=c();65279===n.charCodeAt(0)&&(n=n.substring(1)),a.styleSheet?a.styleSheet.cssText+=n:a.appendChild(document.createTextNode(n));}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),r.attributes)for(var t=Object.keys(r.attributes),n=0;n<t.length;n++)e.setAttribute(t[n],r.attributes[t[n]]);var a="prepend"===s?"afterbegin":"beforeend";return i.insertAdjacentElement(a,e),e}}
 
-var css$3 = "/* ----------------------------------------------------------------------------------------------------\n\nSuper Form Reset\n\nA couple of things to watch out for:\n\n- IE8: If a text input doesn't have padding on all sides or none the text won't be centered.\n- The default border sizes on text inputs in all UAs seem to be slightly different. You're better off using custom borders.\n- You NEED to set the font-size and family on all form elements\n- Search inputs need to have their appearance reset and the box-sizing set to content-box to match other UAs\n- You can style the upload button in webkit using ::-webkit-file-upload-button\n- ::-webkit-file-upload-button selectors can't be used in the same selector as normal ones. FF and IE freak out.\n- IE: You don't need to fake inline-block with labels and form controls in IE. They function as inline-block.\n- By turning off ::-webkit-search-decoration, it removes the extra whitespace on the left on search inputs\n\n----------------------------------------------------------------------------------------------------*/\n\ninput,\nlabel,\nselect,\nbutton,\ntextarea\n{\n\tmargin:0;\n\tborder:0;\n\tpadding:0;\n\tdisplay:inline-block;\n\tvertical-align:middle;\n\twhite-space:normal;\n\tbackground:none;\n\tline-height:1;\n\t/* Browsers have different default form fonts */\n\tfont-size:inherit;\n\tfont-family:inherit;\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;    \n    box-sizing: border-box;\n}\n\n/* Remove the stupid outer glow in Webkit */\ninput:focus\n{\n\toutline:0;\n}\n\n/* Box Sizing Reset\n-----------------------------------------------*/\n\n/* All of our custom controls should be what we expect them to be */\n/* input,\ntextarea\n{\n\t-webkit-box-sizing:content-box;\n\t-moz-box-sizing:content-box;\n\tbox-sizing:content-box;\n} */\n\n/* These elements are usually rendered a certain way by the browser */\nbutton,\ninput[type=reset],\ninput[type=button],\ninput[type=submit],\ninput[type=checkbox],\ninput[type=radio],\nselect\n{\n\t-webkit-box-sizing:border-box;\n\t-moz-box-sizing:border-box;\n\tbox-sizing:border-box;\n}\n\n/* Text Inputs\n-----------------------------------------------*/\n\ninput[type=date],\ninput[type=datetime],\ninput[type=datetime-local],\ninput[type=email],\ninput[type=month],\ninput[type=number],\ninput[type=password],\ninput[type=range],\ninput[type=search],\ninput[type=tel],\ninput[type=text],\ninput[type=time],\ninput[type=url],\ninput[type=week]\n{\n}\n\n/* Button Controls\n-----------------------------------------------*/\n\ninput[type=checkbox],\ninput[type=radio]\n{\n\twidth:13px;\n\theight:13px;\n}\n\n/* File Uploads\n-----------------------------------------------*/\n\ninput[type=file]\n{\n\n}\n\n/* Search Input\n-----------------------------------------------*/\n\n/* Make webkit render the search input like a normal text field */\ninput[type=search]\n{\n\t-webkit-appearance:textfield;\n\t/* -webkit-box-sizing:content-box; */\n}\n\n/* Turn off the recent search for webkit. It adds about 15px padding on the left */\n::-webkit-search-decoration\n{\n\tdisplay:none;\n}\n\n/* Buttons\n-----------------------------------------------*/\n\nbutton,\ninput[type=\"reset\"],\ninput[type=\"button\"],\ninput[type=\"submit\"]\n{\n\t/* Fix IE7 display bug */\n\toverflow:visible;\n\twidth:auto;\n}\n\n/* IE8 and FF freak out if this rule is within another selector */\n::-webkit-file-upload-button\n{\t\n\tpadding:0;\n\tborder:0;\n\tbackground:none;\n}\n\n/* Textarea\n-----------------------------------------------*/\n\ntextarea \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n\t/* Turn off scroll bars in IE unless needed */\n\toverflow:auto;\n\tresize: vertical;\n\twhite-space: pre-wrap;\n}\n\n/* Selects\n-----------------------------------------------*/\n\nselect\n{\n\n}\n\nselect[multiple] \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n}\n\n\n\n.input{\n\twidth: 100% !important;\n\t-webkit-box-sizing: border-box;\n\t-moz-box-sizing: border-box;    \n\tbox-sizing: border-box;\n\tbackground-color: var(--light-blue);\n\tpadding: 8px;\n\tfont-size: 14px;\n\tmin-height: 35px;\n}\n\n.input:enabled:hover{\n\tbackground-color: var(--hover-bg);\n}\n\nselect:hover{\n\tcursor: pointer;\n}\n\n.input:disabled{\n\tcursor: not-allowed;\n}\n.row[data-v-c4d9ca46]{\n        display: grid;\n        grid-template-columns: 1fr;\n        margin-bottom: 1em;\n        border: 1px solid grey;\n        border-radius: 5px;\n        overflow: hidden;\n}\n.row div[data-v-c4d9ca46]{\n        display: grid;\n        grid-template-columns: 150px 1fr;\n        border-bottom: 1px solid grey;\n}\n.row div[data-v-c4d9ca46]:last-child{\n        border-bottom: 0px;\n}\nlabel[data-v-c4d9ca46]{\n        padding: 8px;\n        font-weight: 700;\n        font-size: 12px;\n        text-transform: capitalize;\n        border-right: 1px solid grey;\n        background-color: var(--light-blue);\n}\n@media screen and (min-width: 1200px) {\n.label[data-v-c4d9ca46]{\n            clip: rect(0 0 0 0);\n            clip-path: inset(50%);\n            height: 1px;\n            overflow: hidden;\n            position: absolute;\n            white-space: nowrap;\n            width: 1px;\n}\n.row[data-v-c4d9ca46]{\n            display: grid;\n            grid-template-columns: repeat(12, 1fr);\n            grid-gap: 1px;\n            width: 100%;\n            margin-bottom: 2px;\n            border: 0px;\n}\n.row div[data-v-c4d9ca46]{\n            display: block;\n            grid-template-columns: 150px 1fr;\n            border-bottom: 0px;\n}\n.lg-span-2[data-v-c4d9ca46]{\n            grid-column: span 2;\n}\n.lg-center[data-v-c4d9ca46]{\n            text-align: center;\n}\n.lg-left[data-v-c4d9ca46]{\n            text-align: left;\n}\n.table-header div[data-v-c4d9ca46]{\n            display: initial;\n            font-size: 12px;\n            font-weight: bold;\n}\n.row div[data-v-c4d9ca46]{\n            overflow: hidden;\n            /* background-color: var(--light-blue); */\n}\n.row:hover .input[data-v-c4d9ca46]{\n            background-color: var(--pale-green);\n}\n.row:hover .input[data-v-c4d9ca46]:enabled:hover{\n            background-color: var(--hover-bg);\n}\n.row:hover .input[data-v-c4d9ca46]:disabled:hover{\n            background-color: var(--light-grey);\n}\ntextarea[data-v-c4d9ca46]{\n            height: 35px;\n            padding-top: 10px;\n}\n}\n\n";
+var css$3 = "/* ----------------------------------------------------------------------------------------------------\n\nSuper Form Reset\n\nA couple of things to watch out for:\n\n- IE8: If a text input doesn't have padding on all sides or none the text won't be centered.\n- The default border sizes on text inputs in all UAs seem to be slightly different. You're better off using custom borders.\n- You NEED to set the font-size and family on all form elements\n- Search inputs need to have their appearance reset and the box-sizing set to content-box to match other UAs\n- You can style the upload button in webkit using ::-webkit-file-upload-button\n- ::-webkit-file-upload-button selectors can't be used in the same selector as normal ones. FF and IE freak out.\n- IE: You don't need to fake inline-block with labels and form controls in IE. They function as inline-block.\n- By turning off ::-webkit-search-decoration, it removes the extra whitespace on the left on search inputs\n\n----------------------------------------------------------------------------------------------------*/\n\ninput,\nlabel,\nselect,\nbutton,\ntextarea\n{\n\tmargin:0;\n\tborder:0;\n\tpadding:0;\n\tdisplay:inline-block;\n\tvertical-align:middle;\n\twhite-space:normal;\n\tbackground:none;\n\tline-height:1;\n\t/* Browsers have different default form fonts */\n\tfont-size:inherit;\n\tfont-family:inherit;\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;    \n    box-sizing: border-box;\n}\n\n/* Remove the stupid outer glow in Webkit */\ninput:focus\n{\n\toutline:0;\n}\n\n/* Box Sizing Reset\n-----------------------------------------------*/\n\n/* All of our custom controls should be what we expect them to be */\n/* input,\ntextarea\n{\n\t-webkit-box-sizing:content-box;\n\t-moz-box-sizing:content-box;\n\tbox-sizing:content-box;\n} */\n\n/* These elements are usually rendered a certain way by the browser */\nbutton,\ninput[type=reset],\ninput[type=button],\ninput[type=submit],\ninput[type=checkbox],\ninput[type=radio],\nselect\n{\n\t-webkit-box-sizing:border-box;\n\t-moz-box-sizing:border-box;\n\tbox-sizing:border-box;\n}\n\n/* Text Inputs\n-----------------------------------------------*/\n\ninput[type=date],\ninput[type=datetime],\ninput[type=datetime-local],\ninput[type=email],\ninput[type=month],\ninput[type=number],\ninput[type=password],\ninput[type=range],\ninput[type=search],\ninput[type=tel],\ninput[type=text],\ninput[type=time],\ninput[type=url],\ninput[type=week]\n{\n}\n\n/* Button Controls\n-----------------------------------------------*/\n\ninput[type=checkbox],\ninput[type=radio]\n{\n\twidth:13px;\n\theight:13px;\n}\n\n/* File Uploads\n-----------------------------------------------*/\n\ninput[type=file]\n{\n\n}\n\n/* Search Input\n-----------------------------------------------*/\n\n/* Make webkit render the search input like a normal text field */\ninput[type=search]\n{\n\t-webkit-appearance:textfield;\n\t/* -webkit-box-sizing:content-box; */\n}\n\n/* Turn off the recent search for webkit. It adds about 15px padding on the left */\n::-webkit-search-decoration\n{\n\tdisplay:none;\n}\n\n/* Buttons\n-----------------------------------------------*/\n\nbutton,\ninput[type=\"reset\"],\ninput[type=\"button\"],\ninput[type=\"submit\"]\n{\n\t/* Fix IE7 display bug */\n\toverflow:visible;\n\twidth:auto;\n}\n\n/* IE8 and FF freak out if this rule is within another selector */\n::-webkit-file-upload-button\n{\t\n\tpadding:0;\n\tborder:0;\n\tbackground:none;\n}\n\n/* Textarea\n-----------------------------------------------*/\n\ntextarea \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n\t/* Turn off scroll bars in IE unless needed */\n\toverflow:auto;\n\tresize: vertical;\n\twhite-space: pre-wrap;\n}\n\n/* Selects\n-----------------------------------------------*/\n\nselect\n{\n\n}\n\nselect[multiple] \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n}\n\n\n\n.input{\n\twidth: 100% !important;\n\t-webkit-box-sizing: border-box;\n\t-moz-box-sizing: border-box;    \n\tbox-sizing: border-box;\n\tbackground-color: var(--light-blue);\n\tpadding: 8px;\n\tfont-size: 14px;\n\tmin-height: 35px;\n}\n\n.input:enabled:hover{\n\tbackground-color: var(--hover-bg);\n}\n\nselect:hover{\n\tcursor: pointer;\n}\n\n.input:disabled{\n\tcursor: not-allowed;\n}\n.row[data-v-c4d9ca46]{\n        display: grid;\n        grid-template-columns: 1fr;\n        margin-bottom: 1em;\n        border-radius: 5px;\n        overflow: hidden;\n}\n.row div[data-v-c4d9ca46]{\n        display: grid;\n        grid-template-columns: 150px 1fr;\n        border-bottom: 1px solid grey;\n}\n.row div[data-v-c4d9ca46]:last-child{\n        border-bottom: 0px;\n}\nlabel[data-v-c4d9ca46]{\n        padding: 8px;\n        font-weight: 700;\n        font-size: 12px;\n        text-transform: capitalize;\n        border-right: 1px solid grey;\n        background-color: var(--light-blue);\n}\n.updated[data-v-c4d9ca46] {\n        border: #ff9800 1px solid;\n}\n.not-updated[data-v-c4d9ca46] {\n        border: 1px solid grey;\n}\n.del-buttons[data-v-c4d9ca46] {\n        grid-column: 1 / 3;\n        min-height: 35px;\n}\n.error[data-v-c4d9ca46] {\n        padding: 8px;\n        color: darkred;\n}\n@media screen and (min-width: 1200px) {\n.label[data-v-c4d9ca46]{\n            clip: rect(0 0 0 0);\n            clip-path: inset(50%);\n            height: 1px;\n            overflow: hidden;\n            position: absolute;\n            white-space: nowrap;\n            width: 1px;\n}\n.row[data-v-c4d9ca46]{\n            display: grid;\n            grid-template-columns: repeat(12, 1fr);\n            grid-gap: 1px;\n            width: 100%;\n            margin-bottom: 2px;\n}\n.not-updated[data-v-c4d9ca46] {\n            border: 0px;\n}\n.row div[data-v-c4d9ca46]{\n            display: block;\n            grid-template-columns: 150px 1fr;\n            border-bottom: 0px;\n}\n.lg-span-2[data-v-c4d9ca46]{\n            grid-column: span 2;\n}\n.lg-center[data-v-c4d9ca46]{\n            text-align: center;\n}\n.lg-left[data-v-c4d9ca46]{\n            text-align: left;\n}\n.table-header div[data-v-c4d9ca46]{\n            display: initial;\n            font-size: 12px;\n            font-weight: bold;\n}\n.row div[data-v-c4d9ca46]{\n            overflow: hidden;\n            /* background-color: var(--light-blue); */\n}\n.row:hover .input[data-v-c4d9ca46]{\n            background-color: var(--pale-green);\n}\n.row:hover .input[data-v-c4d9ca46]:enabled:hover{\n            background-color: var(--hover-bg);\n}\n.row:hover .input[data-v-c4d9ca46]:disabled:hover{\n            background-color: var(--light-grey);\n}\ntextarea[data-v-c4d9ca46]{\n            height: 35px;\n            padding-top: 10px;\n}\n}\n\n";
 n(css$3,{});
 
 script$3.__scopeId = "data-v-c4d9ca46";
@@ -362,52 +370,51 @@ script$3.__file = "src/components/outputTableRow.vue";
 const _withScopeId = n => (pushScopeId("data-v-7df546ad"),n=n(),popScopeId(),n);
 const _hoisted_1$2 = {
   key: 0,
-  class: "row"
+  class: "add-container"
 };
-const _hoisted_2$2 = { class: "lg-span-2 bg-light-grey" };
-const _hoisted_3$1 = {
+const _hoisted_2$2 = {
   key: 1,
   class: "row"
 };
-const _hoisted_4$1 = { class: "lg-left bg-light-blue" };
-const _hoisted_5$1 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_3$1 = { class: "lg-left bg-light-blue" };
+const _hoisted_4$1 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "name"
 }, "Name", -1 /* HOISTED */));
-const _hoisted_6 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_7 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_5$1 = { class: "lg-span-2 lg-left bg-light-blue" };
+const _hoisted_6 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   id: "description",
   class: "label",
   for: "description"
 }, "Description", -1 /* HOISTED */));
-const _hoisted_8 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_9 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_7 = { class: "lg-span-2 lg-left bg-light-blue" };
+const _hoisted_8 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "device"
 }, "device", -1 /* HOISTED */));
-const _hoisted_10 = ["value"];
-const _hoisted_11 = { class: "lg-span-2 lg-left bg-light-blue" };
-const _hoisted_12 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_9 = ["value"];
+const _hoisted_10 = { class: "lg-span-2 lg-left bg-light-blue" };
+const _hoisted_11 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "dataPoint"
 }, "data Type", -1 /* HOISTED */));
-const _hoisted_13 = ["value"];
-const _hoisted_14 = { class: "lg-center bg-light-blue" };
-const _hoisted_15 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_12 = ["value"];
+const _hoisted_13 = { class: "lg-center bg-light-blue" };
+const _hoisted_14 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "min"
 }, "Min", -1 /* HOISTED */));
-const _hoisted_16 = { class: "lg-center bg-light-blue" };
-const _hoisted_17 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_15 = { class: "lg-center bg-light-blue" };
+const _hoisted_16 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "max"
 }, "Max", -1 /* HOISTED */));
-const _hoisted_18 = { class: "lg-center lg-span-2 bg-light-blue" };
-const _hoisted_19 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
+const _hoisted_17 = { class: "lg-center lg-span-2 bg-light-blue" };
+const _hoisted_18 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("label", {
   class: "label",
   for: "liveOutputValue"
 }, "Live Output Value", -1 /* HOISTED */));
-const _hoisted_20 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("div", { class: "lg-center bg-light-blue" }, null, -1 /* HOISTED */));
+const _hoisted_19 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createElementVNode("div", { class: "lg-center bg-light-blue" }, null, -1 /* HOISTED */));
 
     
 var script$2 = {
@@ -489,6 +496,7 @@ const props = __props;
         data_type.value = null;
         min.value = 0;
         max.value = 1;
+        errors.value = [];
     };
 
     watch(save, async (newVal) => {
@@ -542,19 +550,19 @@ const props = __props;
 
 
 return (_ctx, _cache) => {
+  const _component_v_icon = resolveComponent("v-icon");
+
   return (openBlock(), createElementBlock(Fragment, null, [
     (!new_output.value)
       ? (openBlock(), createElementBlock("div", _hoisted_1$2, [
-          createElementVNode("div", _hoisted_2$2, [
-            createElementVNode("button", {
-              class: "input",
-              onClick: _cache[0] || (_cache[0] = $event => (update()))
-            }, "New")
-          ])
+          createElementVNode("button", {
+            class: "add",
+            onClick: _cache[0] || (_cache[0] = $event => (update()))
+          }, "New")
         ]))
-      : (openBlock(), createElementBlock("div", _hoisted_3$1, [
-          createElementVNode("div", _hoisted_4$1, [
-            _hoisted_5$1,
+      : (openBlock(), createElementBlock("div", _hoisted_2$2, [
+          createElementVNode("div", _hoisted_3$1, [
+            _hoisted_4$1,
             withDirectives(createElementVNode("input", {
               id: "name",
               class: "input",
@@ -564,8 +572,8 @@ return (_ctx, _cache) => {
               [vModelText, name.value]
             ])
           ]),
-          createElementVNode("div", _hoisted_6, [
-            _hoisted_7,
+          createElementVNode("div", _hoisted_5$1, [
+            _hoisted_6,
             withDirectives(createElementVNode("textarea", {
               class: "input textarea",
               type: "textarea",
@@ -575,8 +583,8 @@ return (_ctx, _cache) => {
               [vModelText, description.value]
             ])
           ]),
-          createElementVNode("div", _hoisted_8, [
-            _hoisted_9,
+          createElementVNode("div", _hoisted_7, [
+            _hoisted_8,
             withDirectives(createElementVNode("select", {
               id: "device",
               class: "input",
@@ -587,14 +595,14 @@ return (_ctx, _cache) => {
                 return (openBlock(), createElementBlock("option", {
                   key: source,
                   value: source
-                }, toDisplayString(source), 9 /* TEXT, PROPS */, _hoisted_10))
+                }, toDisplayString(source), 9 /* TEXT, PROPS */, _hoisted_9))
               }), 128 /* KEYED_FRAGMENT */))
             ], 512 /* NEED_PATCH */), [
               [vModelSelect, data_source.value]
             ])
           ]),
-          createElementVNode("div", _hoisted_11, [
-            _hoisted_12,
+          createElementVNode("div", _hoisted_10, [
+            _hoisted_11,
             withDirectives(createElementVNode("select", {
               id: "dataPoint",
               class: "input",
@@ -605,14 +613,14 @@ return (_ctx, _cache) => {
                 return (openBlock(), createElementBlock("option", {
                   key: type,
                   value: type
-                }, toDisplayString(type), 9 /* TEXT, PROPS */, _hoisted_13))
+                }, toDisplayString(type), 9 /* TEXT, PROPS */, _hoisted_12))
               }), 128 /* KEYED_FRAGMENT */))
             ], 512 /* NEED_PATCH */), [
               [vModelSelect, data_type.value]
             ])
           ]),
-          createElementVNode("div", _hoisted_14, [
-            _hoisted_15,
+          createElementVNode("div", _hoisted_13, [
+            _hoisted_14,
             withDirectives(createElementVNode("input", {
               id: "min",
               class: "input lg-center",
@@ -626,8 +634,8 @@ return (_ctx, _cache) => {
               [vModelText, min.value]
             ])
           ]),
-          createElementVNode("div", _hoisted_16, [
-            _hoisted_17,
+          createElementVNode("div", _hoisted_15, [
+            _hoisted_16,
             withDirectives(createElementVNode("input", {
               id: "max",
               class: "input lg-center",
@@ -641,8 +649,8 @@ return (_ctx, _cache) => {
               [vModelText, max.value]
             ])
           ]),
-          createElementVNode("div", _hoisted_18, [
-            _hoisted_19,
+          createElementVNode("div", _hoisted_17, [
+            _hoisted_18,
             withDirectives(createElementVNode("input", {
               id: "liveOutputValue",
               class: "input lg-center",
@@ -653,14 +661,17 @@ return (_ctx, _cache) => {
               [vModelText, liveOutputValue.value]
             ])
           ]),
-          _hoisted_20
+          _hoisted_19
         ])),
     createElementVNode("div", null, [
       (openBlock(true), createElementBlock(Fragment, null, renderList(errors.value, (error) => {
         return (openBlock(), createElementBlock("div", {
-          class: "lg-span-2",
+          class: "lg-span-2 error",
           key: _ctx.errror
-        }, toDisplayString(error), 1 /* TEXT */))
+        }, [
+          createVNode(_component_v_icon, { name: "error" }),
+          createTextVNode(" " + toDisplayString(error), 1 /* TEXT */)
+        ]))
       }), 128 /* KEYED_FRAGMENT */))
     ])
   ], 64 /* STABLE_FRAGMENT */))
@@ -669,7 +680,7 @@ return (_ctx, _cache) => {
 
 };
 
-var css$2 = "/* ----------------------------------------------------------------------------------------------------\n\nSuper Form Reset\n\nA couple of things to watch out for:\n\n- IE8: If a text input doesn't have padding on all sides or none the text won't be centered.\n- The default border sizes on text inputs in all UAs seem to be slightly different. You're better off using custom borders.\n- You NEED to set the font-size and family on all form elements\n- Search inputs need to have their appearance reset and the box-sizing set to content-box to match other UAs\n- You can style the upload button in webkit using ::-webkit-file-upload-button\n- ::-webkit-file-upload-button selectors can't be used in the same selector as normal ones. FF and IE freak out.\n- IE: You don't need to fake inline-block with labels and form controls in IE. They function as inline-block.\n- By turning off ::-webkit-search-decoration, it removes the extra whitespace on the left on search inputs\n\n----------------------------------------------------------------------------------------------------*/\n\ninput,\nlabel,\nselect,\nbutton,\ntextarea\n{\n\tmargin:0;\n\tborder:0;\n\tpadding:0;\n\tdisplay:inline-block;\n\tvertical-align:middle;\n\twhite-space:normal;\n\tbackground:none;\n\tline-height:1;\n\t/* Browsers have different default form fonts */\n\tfont-size:inherit;\n\tfont-family:inherit;\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;    \n    box-sizing: border-box;\n}\n\n/* Remove the stupid outer glow in Webkit */\ninput:focus\n{\n\toutline:0;\n}\n\n/* Box Sizing Reset\n-----------------------------------------------*/\n\n/* All of our custom controls should be what we expect them to be */\n/* input,\ntextarea\n{\n\t-webkit-box-sizing:content-box;\n\t-moz-box-sizing:content-box;\n\tbox-sizing:content-box;\n} */\n\n/* These elements are usually rendered a certain way by the browser */\nbutton,\ninput[type=reset],\ninput[type=button],\ninput[type=submit],\ninput[type=checkbox],\ninput[type=radio],\nselect\n{\n\t-webkit-box-sizing:border-box;\n\t-moz-box-sizing:border-box;\n\tbox-sizing:border-box;\n}\n\n/* Text Inputs\n-----------------------------------------------*/\n\ninput[type=date],\ninput[type=datetime],\ninput[type=datetime-local],\ninput[type=email],\ninput[type=month],\ninput[type=number],\ninput[type=password],\ninput[type=range],\ninput[type=search],\ninput[type=tel],\ninput[type=text],\ninput[type=time],\ninput[type=url],\ninput[type=week]\n{\n}\n\n/* Button Controls\n-----------------------------------------------*/\n\ninput[type=checkbox],\ninput[type=radio]\n{\n\twidth:13px;\n\theight:13px;\n}\n\n/* File Uploads\n-----------------------------------------------*/\n\ninput[type=file]\n{\n\n}\n\n/* Search Input\n-----------------------------------------------*/\n\n/* Make webkit render the search input like a normal text field */\ninput[type=search]\n{\n\t-webkit-appearance:textfield;\n\t/* -webkit-box-sizing:content-box; */\n}\n\n/* Turn off the recent search for webkit. It adds about 15px padding on the left */\n::-webkit-search-decoration\n{\n\tdisplay:none;\n}\n\n/* Buttons\n-----------------------------------------------*/\n\nbutton,\ninput[type=\"reset\"],\ninput[type=\"button\"],\ninput[type=\"submit\"]\n{\n\t/* Fix IE7 display bug */\n\toverflow:visible;\n\twidth:auto;\n}\n\n/* IE8 and FF freak out if this rule is within another selector */\n::-webkit-file-upload-button\n{\t\n\tpadding:0;\n\tborder:0;\n\tbackground:none;\n}\n\n/* Textarea\n-----------------------------------------------*/\n\ntextarea \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n\t/* Turn off scroll bars in IE unless needed */\n\toverflow:auto;\n\tresize: vertical;\n\twhite-space: pre-wrap;\n}\n\n/* Selects\n-----------------------------------------------*/\n\nselect\n{\n\n}\n\nselect[multiple] \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n}\n\n\n\n.input{\n\twidth: 100% !important;\n\t-webkit-box-sizing: border-box;\n\t-moz-box-sizing: border-box;    \n\tbox-sizing: border-box;\n\tbackground-color: var(--light-blue);\n\tpadding: 8px;\n\tfont-size: 14px;\n\tmin-height: 35px;\n}\n\n.input:enabled:hover{\n\tbackground-color: var(--hover-bg);\n}\n\nselect:hover{\n\tcursor: pointer;\n}\n\n.input:disabled{\n\tcursor: not-allowed;\n}\n.row[data-v-7df546ad]{\n        display: grid;\n        grid-template-columns: 1fr;\n        margin-bottom: 1em;\n        border: 1px solid grey;\n        border-radius: 5px;\n        overflow: hidden;\n}\n.row div[data-v-7df546ad]{\n        display: grid;\n        grid-template-columns: 150px 1fr;\n        border-bottom: 1px solid grey;\n}\n.row div[data-v-7df546ad]:last-child{\n        border-bottom: 0px;\n}\nlabel[data-v-7df546ad]{\n        padding: 8px;\n        font-weight: 700;\n        font-size: 12px;\n        text-transform: capitalize;\n        border-right: 1px solid grey;\n        background-color: var(--light-blue);\n}\n@media screen and (min-width: 1200px) {\n.label[data-v-7df546ad]{\n            clip: rect(0 0 0 0);\n            clip-path: inset(50%);\n            height: 1px;\n            overflow: hidden;\n            position: absolute;\n            white-space: nowrap;\n            width: 1px;\n}\n.row[data-v-7df546ad]{\n            display: grid;\n            grid-template-columns: repeat(12, 1fr);\n            grid-gap: 1px;\n            width: 100%;\n            margin-bottom: 2px;\n            border: 0px;\n}\n.row div[data-v-7df546ad]{\n            display: block;\n            grid-template-columns: 150px 1fr;\n            border-bottom: 0px;\n}\n.lg-span-2[data-v-7df546ad]{\n            grid-column: span 2;\n}\n.lg-center[data-v-7df546ad]{\n            text-align: center;\n}\n.lg-left[data-v-7df546ad]{\n            text-align: left;\n}\n.table-header div[data-v-7df546ad]{\n            display: initial;\n            font-size: 12px;\n            font-weight: bold;\n}\n.row div[data-v-7df546ad]{\n            overflow: hidden;\n            /* background-color: var(--light-blue); */\n}\n.row:hover .input[data-v-7df546ad]{\n            background-color: var(--pale-green);\n}\n.row:hover .input[data-v-7df546ad]:enabled:hover{\n            background-color: var(--hover-bg);\n}\n.row:hover .input[data-v-7df546ad]:disabled:hover{\n            background-color: var(--light-grey);\n}\ntextarea[data-v-7df546ad]{\n            height: 35px;\n            padding-top: 10px;\n}\n}\n\n";
+var css$2 = "/* ----------------------------------------------------------------------------------------------------\n\nSuper Form Reset\n\nA couple of things to watch out for:\n\n- IE8: If a text input doesn't have padding on all sides or none the text won't be centered.\n- The default border sizes on text inputs in all UAs seem to be slightly different. You're better off using custom borders.\n- You NEED to set the font-size and family on all form elements\n- Search inputs need to have their appearance reset and the box-sizing set to content-box to match other UAs\n- You can style the upload button in webkit using ::-webkit-file-upload-button\n- ::-webkit-file-upload-button selectors can't be used in the same selector as normal ones. FF and IE freak out.\n- IE: You don't need to fake inline-block with labels and form controls in IE. They function as inline-block.\n- By turning off ::-webkit-search-decoration, it removes the extra whitespace on the left on search inputs\n\n----------------------------------------------------------------------------------------------------*/\n\ninput,\nlabel,\nselect,\nbutton,\ntextarea\n{\n\tmargin:0;\n\tborder:0;\n\tpadding:0;\n\tdisplay:inline-block;\n\tvertical-align:middle;\n\twhite-space:normal;\n\tbackground:none;\n\tline-height:1;\n\t/* Browsers have different default form fonts */\n\tfont-size:inherit;\n\tfont-family:inherit;\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;    \n    box-sizing: border-box;\n}\n\n/* Remove the stupid outer glow in Webkit */\ninput:focus\n{\n\toutline:0;\n}\n\n/* Box Sizing Reset\n-----------------------------------------------*/\n\n/* All of our custom controls should be what we expect them to be */\n/* input,\ntextarea\n{\n\t-webkit-box-sizing:content-box;\n\t-moz-box-sizing:content-box;\n\tbox-sizing:content-box;\n} */\n\n/* These elements are usually rendered a certain way by the browser */\nbutton,\ninput[type=reset],\ninput[type=button],\ninput[type=submit],\ninput[type=checkbox],\ninput[type=radio],\nselect\n{\n\t-webkit-box-sizing:border-box;\n\t-moz-box-sizing:border-box;\n\tbox-sizing:border-box;\n}\n\n/* Text Inputs\n-----------------------------------------------*/\n\ninput[type=date],\ninput[type=datetime],\ninput[type=datetime-local],\ninput[type=email],\ninput[type=month],\ninput[type=number],\ninput[type=password],\ninput[type=range],\ninput[type=search],\ninput[type=tel],\ninput[type=text],\ninput[type=time],\ninput[type=url],\ninput[type=week]\n{\n}\n\n/* Button Controls\n-----------------------------------------------*/\n\ninput[type=checkbox],\ninput[type=radio]\n{\n\twidth:13px;\n\theight:13px;\n}\n\n/* File Uploads\n-----------------------------------------------*/\n\ninput[type=file]\n{\n\n}\n\n/* Search Input\n-----------------------------------------------*/\n\n/* Make webkit render the search input like a normal text field */\ninput[type=search]\n{\n\t-webkit-appearance:textfield;\n\t/* -webkit-box-sizing:content-box; */\n}\n\n/* Turn off the recent search for webkit. It adds about 15px padding on the left */\n::-webkit-search-decoration\n{\n\tdisplay:none;\n}\n\n/* Buttons\n-----------------------------------------------*/\n\nbutton,\ninput[type=\"reset\"],\ninput[type=\"button\"],\ninput[type=\"submit\"]\n{\n\t/* Fix IE7 display bug */\n\toverflow:visible;\n\twidth:auto;\n}\n\n/* IE8 and FF freak out if this rule is within another selector */\n::-webkit-file-upload-button\n{\t\n\tpadding:0;\n\tborder:0;\n\tbackground:none;\n}\n\n/* Textarea\n-----------------------------------------------*/\n\ntextarea \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n\t/* Turn off scroll bars in IE unless needed */\n\toverflow:auto;\n\tresize: vertical;\n\twhite-space: pre-wrap;\n}\n\n/* Selects\n-----------------------------------------------*/\n\nselect\n{\n\n}\n\nselect[multiple] \n{\n\t/* Move the label to the top */\n\tvertical-align:top;\n}\n\n\n\n.input{\n\twidth: 100% !important;\n\t-webkit-box-sizing: border-box;\n\t-moz-box-sizing: border-box;    \n\tbox-sizing: border-box;\n\tbackground-color: var(--light-blue);\n\tpadding: 8px;\n\tfont-size: 14px;\n\tmin-height: 35px;\n}\n\n.input:enabled:hover{\n\tbackground-color: var(--hover-bg);\n}\n\nselect:hover{\n\tcursor: pointer;\n}\n\n.input:disabled{\n\tcursor: not-allowed;\n}\n.row[data-v-7df546ad]{\n        display: grid;\n        grid-template-columns: 1fr;\n        margin-bottom: 1em;\n        border: 1px solid grey;\n        border-radius: 5px;\n        overflow: hidden;\n}\n.row div[data-v-7df546ad]{\n        display: grid;\n        grid-template-columns: 150px 1fr;\n        border-bottom: 1px solid grey;\n}\n.row div[data-v-7df546ad]:last-child{\n        border-bottom: 0px;\n}\nlabel[data-v-7df546ad]{\n        padding: 8px;\n        font-weight: 700;\n        font-size: 12px;\n        text-transform: capitalize;\n        border-right: 1px solid grey;\n        background-color: var(--light-blue);\n}\n.error[data-v-7df546ad] {\n        padding: 8px;\n        color: darkred;\n}\n.add[data-v-7df546ad] {\n        -webkit-box-sizing: border-box;\n        -moz-box-sizing: border-box;\n        box-sizing: border-box;\n        padding: 8px;\n        font-size: 14px;\n        min-height: 35px;\n}\n.add-container[data-v-7df546ad] {\n        width: 100px;\n        align-content: center;\n        display: grid;\n        border: #dddddd solid 1px;\n        border-radius: 100px;\n        background: white;\n        -webkit-box-shadow: 5px 5px 10px 1px #dddddd;\n        -moz-box-shadow: 5px 5px 10px 1px #dddddd;\n        box-shadow: 5px 5px 10px 1px #dddddd;\n        margin: 10px 0px;\n}\n@media screen and (min-width: 1200px) {\n.label[data-v-7df546ad]{\n            clip: rect(0 0 0 0);\n            clip-path: inset(50%);\n            height: 1px;\n            overflow: hidden;\n            position: absolute;\n            white-space: nowrap;\n            width: 1px;\n}\n.row[data-v-7df546ad]{\n            display: grid;\n            grid-template-columns: repeat(12, 1fr);\n            grid-gap: 1px;\n            width: 100%;\n            margin-bottom: 2px;\n            border: 0px;\n}\n.row div[data-v-7df546ad]{\n            display: block;\n            grid-template-columns: 150px 1fr;\n            border-bottom: 0px;\n}\n.lg-span-2[data-v-7df546ad]{\n            grid-column: span 2;\n}\n.lg-center[data-v-7df546ad]{\n            text-align: center;\n}\n.lg-left[data-v-7df546ad]{\n            text-align: left;\n}\n.table-header div[data-v-7df546ad]{\n            display: initial;\n            font-size: 12px;\n            font-weight: bold;\n}\n.row div[data-v-7df546ad]{\n            overflow: hidden;\n            /* background-color: var(--light-blue); */\n}\n.row:hover .input[data-v-7df546ad]{\n            background-color: var(--pale-green);\n}\n.row:hover .input[data-v-7df546ad]:enabled:hover{\n            background-color: var(--hover-bg);\n}\n.row:hover .input[data-v-7df546ad]:disabled:hover{\n            background-color: var(--light-grey);\n}\ntextarea[data-v-7df546ad]{\n            height: 35px;\n            padding-top: 10px;\n}\n}\n\n";
 n(css$2,{});
 
 script$2.__scopeId = "data-v-7df546ad";
@@ -4306,7 +4317,10 @@ Object.assign(lookup, {
 });
 
 const _hoisted_1 = { class: "page-container" };
-const _hoisted_2 = { key: 0 };
+const _hoisted_2 = {
+  key: 0,
+  class: "update-bar"
+};
 const _hoisted_3 = ["disabled"];
 const _hoisted_4 = { key: 0 };
 const _hoisted_5 = { key: 1 };
@@ -4480,7 +4494,7 @@ return (_ctx, _cache) => {
         createVNode(script$1, {
           all_outputs: unref(all_outputs),
           client: "unreal",
-          clientTitle: "Unreal Engine"
+          clientTitle: "Unreal Engine:"
         }, null, 8 /* PROPS */, ["all_outputs"]),
         createVNode(script$1, {
           all_outputs: unref(all_outputs),
@@ -4491,6 +4505,7 @@ return (_ctx, _cache) => {
       (allUpdates.value > 0)
         ? (openBlock(), createElementBlock("div", _hoisted_2, [
             createElementVNode("button", {
+              class: "update-button",
               onClick: _cache[0] || (_cache[0] = $event => (doSave())),
               disabled: discard.value
             }, [
@@ -4499,6 +4514,7 @@ return (_ctx, _cache) => {
                 : (openBlock(), createElementBlock("span", _hoisted_5, "Saving..."))
             ], 8 /* PROPS */, _hoisted_3),
             createElementVNode("button", {
+              class: "update-button",
               onClick: _cache[1] || (_cache[1] = $event => (doDiscard()))
             }, " Discard ")
           ]))
@@ -4511,7 +4527,7 @@ return (_ctx, _cache) => {
 
 };
 
-var css = ":root {\n    --light-blue: #DBEFF5;\n    --hover-bg: #BDFF00;\n    --pale-green: #DFFF84;\n    --light-grey: #f5f5f5;\n  }\n\t/* @import url('./assets/css/forms.css'); */\n.page-container{\n\t\tpadding: 32px 16px;\n\t\tcolor: black;\n}\n@media screen and (min-width: 600px) {\n.page-container{\n\t\t\tpadding: 0 48px;\n}\n}\n\n";
+var css = ":root {\n    --light-blue: #DBEFF5;\n    --hover-bg: #BDFF00;\n    --pale-green: #DFFF84;\n    --light-grey: #f5f5f5;\n  }\n\t/* @import url('./assets/css/forms.css'); */\n.page-container{\n\t\tpadding: 32px 16px;\n\t\tcolor: black;\n}\n.update-bar {\n\t    position: sticky;\n\t    height: 50px;\n\t    bottom: 0px;\n\t    background: #ff8400;\n\t    line-height: 50px;\n\t    width: 100%;\n\t    padding: 0 16px;\n}\n.update-button {\n\t    padding: 12px;\n\t    min-width: 100px;\n\t    margin-right: 8px;\n\t    color: white;\n\t    border: white solid 1px;\n\t    border-radius: 50px;\n}\n@media screen and (min-width: 600px) {\n.page-container{\n\t\t\tpadding: 0 48px;\n}\n.update-bar {\n\t\t    padding: 0 48px;\n\t\t    margin-top: 48px;\n}\n}\n\n";
 n(css,{});
 
 script.__file = "src/module.vue";
