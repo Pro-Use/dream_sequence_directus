@@ -1,20 +1,22 @@
 <template>
-    <h2>{{clientTitle}}</h2>
+    <div class="output-group-container">
+        <h2>{{clientTitle}}</h2>
 
-    <div class="table">
-        <div class="row table-header">
-            <div class="lg-left">Name</div>
-            <div class="lg-span-2 lg-left">Description</div>
-            <div class="lg-span-2 lg-left">Source Device</div>
-            <div class="lg-span-2 lg-left">Data Point</div>
-            <div class="lg-center">Min</div>
-            <div class="lg-center">Max</div>
-            <div class="lg-center">Live Data Value</div>
+        <div class="table">
+            <div class="row table-header">
+                <div class="lg-left">Name</div>
+                <div class="lg-span-2 lg-left">Description</div>
+                <div class="lg-span-2 lg-left">Source Device</div>
+                <div class="lg-span-2 lg-left">Data Point</div>
+                <div class="lg-center">Min</div>
+                <div class="lg-center">Max</div>
+                <div class="lg-center">Live Data Value</div>
+            </div>
+
+            <outputTableRow v-for="output in outputs" :key="output.name" :output="output"></outputTableRow>
+            <newOutputTableRow :client="client" ></newOutputTableRow>
+
         </div>
-
-        <outputTableRow v-for="output in outputs" :key="output.name" :output="output"></outputTableRow>
-        <newOutputTableRow :client="client" ></newOutputTableRow>
-
     </div>
 
 </template>
@@ -33,6 +35,10 @@
 </script>
 
 <style scoped>
+
+    .output-group-container{
+        padding-bottom: 3em;
+    }
 
     h2{
         font-size: 1.25em;

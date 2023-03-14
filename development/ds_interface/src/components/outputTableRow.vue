@@ -244,8 +244,8 @@
         background-color: var(--light-blue);
     }
 
-    .updated {
-        border: #ff9800 1px solid;
+    .updated input, .updated select, .updated textarea{
+        background-color: #ff990064 !important;
     }
 
     .not-updated {
@@ -255,6 +255,12 @@
     .del-buttons {
         grid-column: 1 / 3;
         min-height: 35px;
+        background: var(--light-blue);
+        width: 100%;
+    }
+
+    .del-buttons:hover{
+        color: red;
     }
 
     .error {

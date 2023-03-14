@@ -1,6 +1,6 @@
 <template>
     <div class="add-container " v-if="!new_output">
-        <button class="add" @click="update()">New</button>
+        <button class="add" @click="update()">Add New</button>
     </div>
     <div v-else class="row">
         <div class="lg-left bg-light-blue">
@@ -223,16 +223,27 @@
     }
 
     .add-container {
-        width: 100px;
+        margin-top: 2em;
         align-content: center;
-        display: grid;
-        border: #dddddd solid 1px;
+        margin: 1.5em 0px;
+    }
+
+    .add-container button{
+        font-size: .875em;
         border-radius: 100px;
+        padding: 0 35px;
+        border: rgba(0, 0, 0, 0.1) solid 1px;
         background: white;
-        -webkit-box-shadow: 5px 5px 10px 1px #dddddd;
-        -moz-box-shadow: 5px 5px 10px 1px #dddddd;
-        box-shadow: 5px 5px 10px 1px #dddddd;
-        margin: 10px 0px;
+        -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-container button:hover{
+        background-color: var(--pale-green);
+        -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.1);
     }
 
 
