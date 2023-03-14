@@ -38,7 +38,10 @@
 	import clientOutputs from './components/clientOutputs.vue';
 	import { provide, ref, onMounted } from 'vue'
 	import { useApi, defineOperationApp } from '@directus/extensions-sdk';
+	import { io } from "socket.io-client";
 
+	const sockets = []
+	const clients = ['unreal', 'midi']
 	const api = useApi();
 
 	const allUpdates = ref(0)
@@ -49,6 +52,8 @@
 	const data_sources = ref([])
 	const data_types = ref({})
 	var all_outputs = ref([])
+
+	const latest_vals = ref({})
 	
 	const outputSaved = () => {
 		console.log("1 ouput saved")
@@ -94,7 +99,21 @@
 		all_outputs.value = all_outputs.value.filter((output) => output.id != id)
 	}
 
+	const startSocket = (name) => {
+		let socket = io("/"+name)
+		socket.onAny((eventName, ...args) => {
+		  // console.log(eventName)
+		  // console.log(args)
+		  latest_vals.value[eventName] = args[0]
+		});
+		sockets.push(socket)
+
+	}
+
 	onMounted( async () => {
+		for (let i = 0;i<clients.length;i++){
+			startSocket(clients[i])
+		}
 		api.get('/items/data_sources').then((res) => {
             res.data.data.forEach(source => { 
                 data_sources.value.push(source.name)
@@ -125,6 +144,8 @@
 	provide('add', { all_outputs, addOutput })
 
 	provide ('delete', deleteOutput)
+
+	provide ('output_vals', latest_vals)
 
 	const title = ref('Outputs')
 

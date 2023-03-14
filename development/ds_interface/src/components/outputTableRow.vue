@@ -30,7 +30,7 @@
         </div>
         <div class="lg-center lg-span-2 bg-light-blue">
             <label class="label" for="liveOutputValue">Live Output Value</label>
-            <input id="liveOutputValue"  class="input lg-center" type="text" v-model="liveOutputValue" disabled>
+            <input id="liveOutputValue"  class="input lg-center" type="text" :value="latest_val" disabled>
         </div>
         <div class="lg-center bg-light-blue">
             <button v-if="!deleting" @click="preDelete()"><v-icon name="delete"/></button>
@@ -57,7 +57,6 @@
     const data_type = ref(props.output.data_type)
     const min = ref(props.output.min)
     const max = ref(props.output.max)
-    const liveOutputValue = ref(0.823)
     const updated = ref(false)
     const deleting = ref(false)
     const errors = ref([])
@@ -78,8 +77,19 @@
     const data_types = inject('data_types')
     const deleteOutput = inject('delete')
 
+    const output_vals = inject('output_vals')
+
     const cur_data_types = computed(() =>{
-        return data_types[data_source.value]
+        let val = data_types[data_source.value]
+        if (val){
+            return val
+        } else {
+            return '-'
+        }
+    })
+
+    const latest_val = computed(() => {
+        return output_vals.value[name.value]
     })
 
     const update = () => {
