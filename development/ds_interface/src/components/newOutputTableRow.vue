@@ -2,7 +2,7 @@
     <div class="add-container " v-if="!new_output">
         <button class="add" @click="update()">Add New</button>
     </div>
-    <div v-else class="row">
+    <div v-else class="row updated">
         <div class="lg-left bg-light-blue">
             <label class="label" for="name">Name</label>
             <input id="name" class="input" type="text" v-model="name">
@@ -206,6 +206,10 @@
         text-transform: capitalize;
         border-right: 1px solid grey;
         background-color: var(--light-blue);
+    }
+
+    .updated input, .updated select, .updated textarea{
+        background-color: #ff990064 !important;
     }
 
     .error {
