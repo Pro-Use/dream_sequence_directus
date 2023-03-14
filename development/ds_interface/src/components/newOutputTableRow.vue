@@ -1,22 +1,27 @@
 <template>
-    <div class="row">
+    <div v-if="!new_output" class="row">
+        <div class="lg-span-2 bg-light-grey">
+            <button class="input" @click="update()">New</button>
+        </div>
+    </div>
+    <div v-else class="row">
         <div class="lg-left bg-light-blue">
             <label class="label" for="name">Name</label>
-            <input id="name" class="input" type="text" v-model="name" @input="update()">
+            <input id="name" class="input" type="text" v-model="name">
         </div>
         <div class="lg-span-2 lg-left bg-light-blue">
             <label id="description" class="label" for="description">Description</label>
-            <textarea class="input textarea" type="textarea" wrap="hard" v-model="description" @input="update()"></textarea>
+            <textarea class="input textarea" type="textarea" wrap="hard" v-model="description"></textarea>
         </div>
         <div class="lg-span-2 lg-left bg-light-blue">
             <label class="label" for="device">device</label>
-            <select id="device" class="input" type="textarea" v-model="data_source" @input="update()">
+            <select id="device" class="input" type="textarea" v-model="data_source">
                 <option v-for="source in data_sources" :key="source" :value="source">{{source}}</option>
             </select>
         </div>
         <div class="lg-span-2 lg-left bg-light-blue">
-            <label class="label" for="dataPoint">data Point</label>
-            <select id="dataPoint" class="input" type="textarea" v-model="data_type" @input="update()">
+            <label class="label" for="dataPoint">data Type</label>
+            <select id="dataPoint" class="input" type="textarea" v-model="data_type">
                 <option v-for="type in cur_data_types" :key="type" :value="type">{{type}}</option>
             </select>
         </div>
@@ -33,8 +38,7 @@
             <input id="liveOutputValue"  class="input lg-center" type="text" v-model="liveOutputValue" disabled>
         </div>
         <div class="lg-center bg-light-blue">
-            <button v-if="!deleting" @click="preDelete()"><v-icon name="delete"/></button>
-            <button v-else @click="doDelete()">Delete?</button>
+            
         </div>
     </div>
     <div>
@@ -46,60 +50,36 @@
     import { inject, ref, computed, watch } from 'vue'
     import { useApi } from '@directus/extensions-sdk'
 
-    const props = defineProps(['output'])
+    const props = defineProps(['client'])
 
     const api = useApi();
 
-    const id = ref(props.output.id)
-    const name = ref(props.output.name)
-    const description = ref(props.output.description)
-    const data_source = ref(props.output.data_source)
-    const data_type = ref(props.output.data_type)
-    const min = ref(props.output.min)
-    const max = ref(props.output.max)
-    const liveOutputValue = ref(0.823)
-    const updated = ref(false)
-    const deleting = ref(false)
+    const name = ref('')
+    const description = ref('')
+    const data_source = ref(null)
+    const data_type = ref(null)
+    const min = ref(0)
+    const max = ref(1)
+    const liveOutputValue = ref('-')
+    const new_output = ref(false)
     const errors = ref([])
-
-    const prev_vals = {
-        name: props.output.name,
-        description: props.output.description,
-        data_source: props.output.data_source,
-        data_type: props.output.data_type,
-        min: props.output.min,
-        max: props.output.max,
-    }
     
-    const { save, discard, outputSaved, outputUpdated, outputFailed } = inject('update')
-    const { all_outputs } = inject('add')
+    const { save, discard, outputUpdated, outputSaved, outputFailed } = inject('update')
+    const { all_outputs, addOutput} = inject('add')
 
     const data_sources = inject('data_sources')
     const data_types = inject('data_types')
-    const deleteOutput = inject('delete')
 
     const cur_data_types = computed(() =>{
         return data_types[data_source.value]
     })
 
     const update = () => {
-        if (!updated.value){
-            updated.value = true;
+        if (!new_output.value){
+            new_output.value = true;
             outputUpdated()
         }
             
-    }
-
-    const preDelete = () => {
-        deleting.value = setTimeout(() => {
-            clearTimeout(deleting.value)
-            deleting.value = false
-        }, 3000)
-    }
-
-    const doDelete = () => {
-        deleteOutput(id.value)
-        clearTimeout(deleting.value)
     }
 
     const checkMinMax = () => {
@@ -135,66 +115,62 @@
 
     }
 
+    const reset = () => {
+        name.value = ''
+        description.value = ''
+        data_source.value = null
+        data_type.value = null
+        min.value = 0
+        max.value = 1
+    }
+
     watch(save, async (newVal) => {
-        if (newVal && updated.value){
-            if (validate()){
+        if (newVal && new_output.value){
+            if (validate() ) {
                 console.log('component saving')
                 let new_output_data = {
+                    'name': name.value,
                     'data_source': data_source.value,
                     'data_type': data_type.value,
                     'description': description.value,
                     'min': min.value,
-                    'max': max.value
+                    'max': max.value,
+                    'clients': props.client
                 }
-                let res = await api.patch('/items/outputs/'+id.value, new_output_data)
-                console.log(res)
                 // saving logic here...
-                updated.value = false;
-                // emit save
-                outputSaved()
-                prev_vals.name = name.value
-                prev_vals.description = description.value
-                prev_vals.data_source = data_source.value
-                prev_vals.data_type = data_type.value
-                prev_vals.min = min.value
-                prev_vals.max = max.value
-                console.log(prev_vals)
+                let res = await api.post('/items/outputs/', new_output_data)
+                console.log(res)
+                new_output.value = false;
+                // // emit save
+                addOutput(res.data.data)
+                reset()
             }
+
         }
     })
 
     watch(discard, (newVal) => {
-        if(newVal && updated.value){
-            name.value = prev_vals.name 
-            description.value = prev_vals.description
-            data_source.value = prev_vals.data_source
-            data_type.value = prev_vals.data_type
-            min.value = prev_vals.min
-            max.value = prev_vals.max
-            updated.value = false;
-            // emit discard
+        if(newVal && new_output.value){
+            new_output.value = false;
+            // // emit discard
             outputSaved()
+            reset()
         }
     })
 
     watch(min, (newMin, oldMin) =>{
         if (0 > newMin || newMin > 1 || newMin >= max.value){
             min.value = oldMin
-            return
         }
-        update()
     })
 
     watch(max, (newMax, oldMax) =>{
         console.log(newMax)
         if (!newMax){
-            return
         }
         if (0 > newMax || newMax > 1 || newMax <= min.value){
             max.value = oldMax
-            return
         }
-        update()
     })
 
 

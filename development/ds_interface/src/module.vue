@@ -22,10 +22,13 @@
 
 
 		</div>
-		<button v-if="allUpdates > 0" @click="doSave()">
-			<span v-if="!save">Save</span>
-			<span v-else>Saving...</span>
-		</button>
+		<div v-if="allUpdates > 0">
+			<button @click="doSave()" :disabled="discard">
+				<span v-if="!save">Save</span>
+				<span v-else>Saving...</span>
+			</button>
+			<button @click="doDiscard()"> Discard </button>
+		</div>
 	</private-view>
 	
 </template>
@@ -33,13 +36,15 @@
 <script setup>
 	// import pageTitle from './components/pageTitle.vue';
 	import clientOutputs from './components/clientOutputs.vue';
-	import { provide, ref, reactive, onMounted } from 'vue'
-	import { useApi } from '@directus/extensions-sdk';
+	import { provide, ref, onMounted } from 'vue'
+	import { useApi, defineOperationApp } from '@directus/extensions-sdk';
 
 	const api = useApi();
 
 	const allUpdates = ref(0)
+	const allFailed = ref(0)
 	const save = ref(false)
+	const discard = ref(false)
 
 	const data_sources = ref([])
 	const data_types = ref({})
@@ -51,17 +56,42 @@
 			allUpdates.value -= 1
 			if (allUpdates.value == 0){
 				save.value = false
+				discard.value = false
 			}
 		}
 	}
 
+	const outputFailed = () => {
+		allFailed.value += 1
+		if (allFailed.value == allUpdates.value){
+			save.value = false
+		}
+	}
+
 	const outputUpdated = () => {
-		console.log("1 ouput updated")
 		allUpdates.value  += 1
+		console.log(allUpdates.value + " ouput updated")
+	}
+
+	const addOutput = (new_output) => {
+		all_outputs.value.push(new_output)
+		console.log(all_outputs.value)
+		outputSaved()
 	}
 
 	const doSave = () => {
+		allFailed.value = 0
 		save.value = true;
+	}
+
+	const doDiscard = () => {
+		allFailed.value = 0
+		discard.value = true
+	}
+
+	const deleteOutput = async (id) => {
+		let res = await api.delete('/items/outputs/'+id)
+		all_outputs.value = all_outputs.value.filter((output) => output.id != id)
 	}
 
 	onMounted( async () => {
@@ -88,7 +118,13 @@
         console.log(all_outputs.value)
 	})
 
-	provide('update',{ save, outputSaved, outputUpdated })
+	// Injects
+
+	provide('update',{ save, discard, outputSaved, outputUpdated, outputFailed })
+
+	provide('add', { all_outputs, addOutput })
+
+	provide ('delete', deleteOutput)
 
 	const title = ref('Outputs')
 

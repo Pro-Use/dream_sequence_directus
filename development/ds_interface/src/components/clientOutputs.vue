@@ -7,13 +7,13 @@
             <div class="lg-span-2 lg-left">Description</div>
             <div class="lg-span-2 lg-left">Source Device</div>
             <div class="lg-span-2 lg-left">Data Point</div>
-            <div class="lg-center">Live Data Value</div>
             <div class="lg-center">Min</div>
             <div class="lg-center">Max</div>
-            <div class="lg-center lg-span-2">Live Output</div>
+            <div class="lg-center">Live Data Value</div>
         </div>
 
         <outputTableRow v-for="output in outputs" :key="output.name" :output="output"></outputTableRow>
+        <newOutputTableRow :client="client" ></newOutputTableRow>
 
     </div>
 
@@ -22,6 +22,7 @@
 <script setup>
     import { computed } from 'vue'
     import outputTableRow from './outputTableRow.vue';
+    import newOutputTableRow from './newOutputTableRow.vue';
 
     const props = defineProps(['all_outputs', 'clientTitle', 'client'])
 
