@@ -10,7 +10,7 @@ export default ({ action }, {database}) => {
 			if (data_count.length ){
 				let first_id = key - max_data
 				if (data_count[0].count > max_data) {
-					let del_rows = await(database('urad').where('id', '<=', first_id).del())
+					let del_rows = await(database(collection).where('id', '<=', first_id).del())
 					console.log('deleting: '+ del_rows)
 				}
 			}
