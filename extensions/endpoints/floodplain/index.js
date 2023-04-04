@@ -20,7 +20,7 @@ var index = (router, {database, exceptions}) => {
 				let data_real = await database(output.data_source).orderBy('id', 'desc').first(output.data_type);
 				var data_point = scale(data_real[output.data_type], min[0].min, max[0].max, output.min, output.max);
 			}
-			output_json = {'floodplain': data_point};
+			let output_json = {'floodplain': data_point};
 			console.log(output_json);
 			res.json(output_json);
 
