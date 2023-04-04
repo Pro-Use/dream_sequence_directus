@@ -22,7 +22,7 @@ var index = (router, {database, exceptions}) => {
 
 
 		} else {
-			next(new ServiceUnavailableException(error.message));
+			next(new ServiceUnavailableException("No floodplain output"));
 		}
 	});
 };
