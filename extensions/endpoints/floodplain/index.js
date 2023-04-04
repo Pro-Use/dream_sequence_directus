@@ -4,6 +4,10 @@ var index = (router, {database, exceptions}) => {
 
 	const { ServiceUnavailableException } = exceptions;
 
+	const scale =  (number, inMin, inMax, outMin, outMax) => {
+	    return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+	};
+
 	router.get('/', async (req, res, next) => {
 		let output = await database('outputs').select('*').where('clients', 'floodplain').first();
 		if (output) {
