@@ -25750,7 +25750,8 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 		  				let res = await database('scenes_cameras')
 		  								.insert(scene_cam_data)
 		  								.onConflict('type')
-		  								.merge(['type','name', 'length']);
+		  								.merge()
+		  								.returning("*");
 		  				console.log(res);
 		  			}
 		  			if (data.Scene.length == 4){
@@ -25760,7 +25761,8 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 			  				let res = await database('scenes_cameras')
 			  								.insert(scene_cam_data)
 			  								.onConflict('type')
-			  								.merge('type','name', 'length');
+			  								.merge()
+			  								.returning("*");
 			  				console.log(res);
 			  			}
 			  			
