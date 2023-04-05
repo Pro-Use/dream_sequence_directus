@@ -25735,29 +25735,18 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 		  socket.emit("hello", "browser", (response) => {
 		    console.log(response);
 		  });
-		});
-	  // receive data
-	    io.on("data", async (data) => {
-		  	console.log('new UE data:' + data);
-		  	if (data.Scene || data.Cam || data.Video){
-		  		let type = Object.keys(data)[0].toLowerCase();
-		  		let newData = data[type];
 
-		  		if (data.Scene.length >= 2){
-		  			let cur_length = parseFloat(newData[1]);
-		  			if (cur_length > 0){
-		  				let scene_cam_data = {'type': 'cur_'+type, 'name': newData[0], 'length': cur_length}; 	
-		  				let res = await database('scenes_cameras')
-		  								.insert(scene_cam_data)
-		  								.onConflict('type')
-		  								.merge()
-		  								.returning("*");
-		  				console.log(res);
-		  			}
-		  			if (data.Scene.length == 4){
-			  			let next_length = parseFloat(newData[3]);
-			  			if (next_length > 0){
-			  				let scene_cam_data = {'type': 'next_'+type, 'name': newData[2], 'length': next_length};
+		  // receive data
+		    socket.on("data", async (data) => {
+			  	console.log('new UE data:' + data);
+			  	if (data.Scene || data.Cam || data.Video){
+			  		let type = Object.keys(data)[0].toLowerCase();
+			  		let newData = data[type];
+
+			  		if (data.Scene.length >= 2){
+			  			let cur_length = parseFloat(newData[1]);
+			  			if (cur_length > 0){
+			  				let scene_cam_data = {'type': 'cur_'+type, 'name': newData[0], 'length': cur_length}; 	
 			  				let res = await database('scenes_cameras')
 			  								.insert(scene_cam_data)
 			  								.onConflict('type')
@@ -25765,12 +25754,23 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 			  								.returning("*");
 			  				console.log(res);
 			  			}
-			  			
+			  			if (data.Scene.length == 4){
+				  			let next_length = parseFloat(newData[3]);
+				  			if (next_length > 0){
+				  				let scene_cam_data = {'type': 'next_'+type, 'name': newData[2], 'length': next_length};
+				  				let res = await database('scenes_cameras')
+				  								.insert(scene_cam_data)
+				  								.onConflict('type')
+				  								.merge()
+				  								.returning("*");
+				  				console.log(res);
+				  			}
+				  			
+				  		}
 			  		}
-		  		}
-		  	}
-	    });
-
+			  	}
+		    });
+		});
 	});
 
 	schedule('*/10 * * * * *', async () => {
