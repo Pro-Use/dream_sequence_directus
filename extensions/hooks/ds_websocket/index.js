@@ -25738,12 +25738,12 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 
 		  // receive data
 		    socket.on("data", async (data) => {
-			  	console.log('new UE data:' + data);
+			  	console.log(data);
 			  	if (data.Scene || data.Cam || data.Video){
 			  		let type = Object.keys(data)[0].toLowerCase();
 			  		let newData = data[type];
 
-			  		if (data.Scene.length >= 2){
+			  		if (newData.length >= 2){
 			  			let cur_length = parseFloat(newData[1]);
 			  			if (cur_length > 0){
 			  				let scene_cam_data = {'type': 'cur_'+type, 'name': newData[0], 'length': cur_length}; 	
@@ -25754,7 +25754,7 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 			  								.returning("*");
 			  				console.log(res);
 			  			}
-			  			if (data.Scene.length == 4){
+			  			if (newData.length == 4){
 				  			let next_length = parseFloat(newData[3]);
 				  			if (next_length > 0){
 				  				let scene_cam_data = {'type': 'next_'+type, 'name': newData[2], 'length': next_length};
