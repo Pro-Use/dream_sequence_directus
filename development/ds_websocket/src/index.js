@@ -79,7 +79,7 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 				let data_real = await database(output.data_source).orderBy('id', 'desc').first(output.data_type);
 				var data_point = scale(data_real[output.data_type], min[0].min, max[0].max, output.min, output.max)
 			}
-			console.log(output.name+': '+data_point)
+			// console.log(output.name+': '+data_point)
 			io.emit(output.name, data_point)
 			io.of('/unreal').emit(output.name, data_point)
 		})
