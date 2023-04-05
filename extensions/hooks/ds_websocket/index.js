@@ -25740,9 +25740,9 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 		    socket.on("data", async (data) => {
 			  	console.log(data);
 			  	if (data.Scene || data.Cam || data.Video){
-			  		let type = Object.keys(data)[0].toLowerCase();
+			  		let type = Object.keys(data)[0];
 			  		let newData = data[type];
-
+			  		type = type.toLowerCase();
 			  		if (newData.length >= 2){
 			  			let cur_length = parseFloat(newData[1]);
 			  			if (cur_length > 0){
