@@ -34,6 +34,8 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 		  			let cur_length = parseFloat(newData[1])
 		  			if (cur_length > 0){
 		  				let scene_cam_data = {'type': 'cur_'+type, 'name': newData[0], 'length': cur_length}
+		  				let existing = await database('scenes_cameras').where('type', 'cur_'+type).first('id')
+		  				console.log(existing)
 		  				let res = await database('scenes_cameras')
 		  								.insert(scene_cam_data)
 		  								.onConflict('type')
