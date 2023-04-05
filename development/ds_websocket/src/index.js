@@ -36,8 +36,8 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 		  				let scene_cam_data = {'type': 'cur_'+type, 'name': newData[0], 'length': cur_length}
 		  				let res = await database('scenes_cameras')
 		  								.insert(scene_cam_data)
-		  								.onConflict()
-		  								.merge()
+		  								.onConflict('type')
+		  								.merge(['type','name', 'length'])
 		  				console.log(res)
 		  			}
 		  			if (data.Scene.length == 4){
@@ -46,8 +46,8 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 			  				let scene_cam_data = {'type': 'next_'+type, 'name': newData[2], 'length': next_length}
 			  				let res = await database('scenes_cameras')
 			  								.insert(scene_cam_data)
-			  								.onConflict()
-			  								.merge()
+			  								.onConflict('type')
+			  								.merge('type','name', 'length')
 			  				console.log(res)
 			  			}
 			  			
