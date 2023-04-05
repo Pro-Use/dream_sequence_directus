@@ -46,7 +46,7 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 			  				let scene_cam_data = {'type': 'next_'+type, 'name': newData[2], 'length': next_length}
 			  				let res = await database('scenes_cameras')
 			  								.insert(scene_cam_data)
-			  								.onConflict("type")
+			  								.onConflict()
 			  								.merge()
 			  				console.log(res)
 			  			}
