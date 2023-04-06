@@ -17922,7 +17922,6 @@ var index = async ({ schedule }, {database, getSchema, env}) => {
 		console.log(res.data);
 		if (latest_data !== newTimestamp){
 			latest_data = newTimestamp;
-			newData['date_created'] = newTimestamp;
 			let db_res = await database('water_monitor').insert(newData);
 			console.log(db_res[0]);
 			let data_count = await(database('urad').count('*', {as: 'count'}));
