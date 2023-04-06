@@ -25737,9 +25737,39 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 		  });
 
 		  // receive data
-		  socket.on("data", (data) => {
-		  	console.log(data);
-		  });
+		    socket.on("data", async (data) => {
+			  	console.log(data);
+			  	if (data.Scene || data.Cam || data.Video){
+			  		let type = Object.keys(data)[0];
+			  		let newData = data[type];
+			  		type = type.toLowerCase();
+			  		if (newData.length >= 2){
+			  			let cur_length = parseFloat(newData[1]);
+			  			if (cur_length > 0){
+			  				let scene_cam_data = {'type': 'cur_'+type, 'name': newData[0], 'length': cur_length}; 	
+			  				let res = await database('scenes_cameras')
+			  								.insert(scene_cam_data)
+			  								.onConflict('type')
+			  								.merge()
+			  								.returning("*");
+			  				console.log(res);
+			  			}
+			  			if (newData.length == 4){
+				  			let next_length = parseFloat(newData[3]);
+				  			if (next_length > 0){
+				  				let scene_cam_data = {'type': 'next_'+type, 'name': newData[2], 'length': next_length};
+				  				let res = await database('scenes_cameras')
+				  								.insert(scene_cam_data)
+				  								.onConflict('type')
+				  								.merge()
+				  								.returning("*");
+				  				console.log(res);
+				  			}
+				  			
+				  		}
+			  		}
+			  	}
+		    });
 		});
 	});
 
@@ -25760,7 +25790,7 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 				let data_real = await database(output.data_source).orderBy('id', 'desc').first(output.data_type);
 				var data_point = scale(data_real[output.data_type], min[0].min, max[0].max, output.min, output.max);
 			}
-			console.log(output.name+': '+data_point);
+			// console.log(output.name+': '+data_point)
 			io.emit(output.name, data_point);
 			io.of('/unreal').emit(output.name, data_point);
 		});
