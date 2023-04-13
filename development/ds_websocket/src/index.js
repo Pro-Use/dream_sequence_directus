@@ -24,7 +24,7 @@ export default async ({ schedule, action }, {database, getSchema}) => {
 		  // });
 		});
 		// receive data
-	    io.of("/").on("data", async (data) => {
+	    io.sockets.on("data", async (data) => {
 		  	console.log(data)
 		  	if (data.Scene || data.Cam || data.Video || data.NextScene || data.NextVideo){
 		  		let type = Object.keys(data)[0]
