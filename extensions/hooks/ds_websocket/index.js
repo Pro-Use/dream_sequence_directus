@@ -25731,11 +25731,15 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 		// console.log(io)
 
 		io.on('connection', (socket) => {
-		  	console.log('a client connected');
-		  	// receive data
-		    io.sockets.on("data", async (data) => {
+		  console.log('a client connected');
+		  socket.emit("hello", "browser", (response) => {
+		    console.log(response);
+		  });
+
+		  // receive data
+		    socket.on("data", async (data) => {
 			  	console.log(data);
-			  	if (data.Scene || data.Cam || data.Video || data.NextScene || data.NextVideo){
+			  	if (data.Scene || data.Cam || data.Video || data.NextScene || data.NextCam){
 			  		let type = Object.keys(data)[0];
 			  		let newData = data[type];
 			  		type = type.toLowerCase();
