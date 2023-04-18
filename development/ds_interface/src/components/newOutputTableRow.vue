@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-    import { inject, ref, computed, watch } from 'vue'
+    import { inject, ref, computed, watch, onMounted } from 'vue'
     import { useApi } from '@directus/extensions-sdk'
 
     const props = defineProps(['client'])
@@ -71,7 +71,12 @@
     const data_types = inject('data_types')
 
     const cur_data_types = computed(() =>{
-        return data_types[data_source.value]
+        if (data_source.value) {
+            return data_types[data_source.value]
+        } else {
+            return []
+        }
+        
     })
 
     const update = () => {
@@ -96,7 +101,10 @@
         if (name.value.length == 0){
             errors.value.push('Output name cannot be blank')
         } else {
-            let check_name = all_outputs.value.filter((output) => output.name == name.value)
+            let check_name = all_outputs.value.filter((output) => {
+                console.log("does " + output.clients + " == " + props.client)
+                return output.name == name.value && output.clients == props.client
+            })
             if (check_name.length > 0){
                 errors.value.push('An output named "'+name.value+'" already exists')
             }

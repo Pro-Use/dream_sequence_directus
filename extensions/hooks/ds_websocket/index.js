@@ -25739,34 +25739,22 @@ var index = async ({ schedule, action }, {database, getSchema}) => {
 		  // receive data
 		    socket.on("data", async (data) => {
 			  	console.log(data);
-			  	if (data.Scene || data.Cam || data.Video){
+			  	if (data.Scene || data.Cam || data.Video || data.NextScene || data.NextCam){
 			  		let type = Object.keys(data)[0];
 			  		let newData = data[type];
 			  		type = type.toLowerCase();
 			  		if (newData.length >= 2){
 			  			let cur_length = parseFloat(newData[1]);
 			  			if (cur_length > 0){
-			  				let scene_cam_data = {'type': 'cur_'+type, 'name': newData[0], 'length': cur_length}; 	
+			  				let scene_cam_data = {'type': type, 'name': newData[0], 'length': cur_length}; 	
 			  				let res = await database('scenes_cameras')
 			  								.insert(scene_cam_data)
 			  								.onConflict('type')
 			  								.merge()
 			  								.returning("*");
 			  				console.log(res);
+			  				io.of('/midi').emit(type, cur_length);
 			  			}
-			  			if (newData.length == 4){
-				  			let next_length = parseFloat(newData[3]);
-				  			if (next_length > 0){
-				  				let scene_cam_data = {'type': 'next_'+type, 'name': newData[2], 'length': next_length};
-				  				let res = await database('scenes_cameras')
-				  								.insert(scene_cam_data)
-				  								.onConflict('type')
-				  								.merge()
-				  								.returning("*");
-				  				console.log(res);
-				  			}
-				  			
-				  		}
 			  		}
 			  	}
 		    });
