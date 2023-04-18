@@ -14,7 +14,9 @@ export default async ({ schedule }, {database, getSchema, env}) => {
 	let fields = Object.keys(schema.collections.urad.fields)
 	fields = fields.filter(x => !admin_fields.includes(x));
 	console.log(fields)
-	schedule('* * * * *', async () => {
+	if (env.URAD_REMOTE){
+		console.log("Pulling data from uRad API not local device")
+		schedule('* * * * *', async () => {
 		let res = await axios.get('http://data.uradmonitor.com/api/v1/devices/82000202/all/60', config);
 		let latest = res.data.pop()
 		let asArray = Object.entries(latest);
@@ -32,7 +34,7 @@ export default async ({ schedule }, {database, getSchema, env}) => {
 				console.log('deleting: '+del_rows)
 			}
 		}
-		
-
 	});
+
+	}
 };
