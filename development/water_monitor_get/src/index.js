@@ -19,12 +19,12 @@ export default async ({ schedule }, {database, getSchema, env}) => {
 			latest_data = newTimestamp
 			let db_res = await database('water_monitor').insert(newData)
 			console.log(db_res[0])
-			let data_count = await(database('urad').count('*', {as: 'count'}))
+			let data_count = await(database('water_monitor').count('*', {as: 'count'}))
 			console.log(data_count)
 			if (data_count.length && db_res){
 				let first_id = db_res[0] - max_data
 				if (data_count[0].count > max_data) {
-					let del_rows = await(database('urad').where('id', '<=', first_id).del())
+					let del_rows = await(database('water_monitor').where('id', '<=', first_id).del())
 					console.log('deleting: '+del_rows)
 				}
 			}
